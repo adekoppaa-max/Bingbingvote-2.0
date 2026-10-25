@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>@bingbingvote 🐝</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style type="text/tailwindcss">
+body{font-family:Inter,sans-serif;color:#18181B;background-color:#FEF08A;background-image:conic-gradient(#FDE047 25%,#FEF9C3 0 50%,#FDE047 0 75%,#FEF9C3 0);background-size:48px 48px;background-attachment:fixed}
+h1,h2,h3,.f{font-family:Comfortaa,sans-serif;font-weight:700}
+.c{@apply bg-amber-50 border-2 border-black rounded-2xl p-4 shadow-[4px_4px_0_#000]}
+.b{@apply bg-black text-yellow-300 rounded-full px-4 py-1.5 font-bold text-sm border-2 border-black hover:bg-yellow-300 hover:text-black}
+.b2{@apply bg-yellow-300 text-black rounded-full px-3 py-1 font-bold text-xs border-2 border-black hover:bg-white}
+.i{@apply border-2 border-black rounded-xl px-3 py-1.5 w-full bg-white text-sm}
+.p{@apply inline-flex items-center gap-1 rounded-full border-2 border-black bg-gradient-to-r from-yellow-200 to-yellow-400 px-3 py-0.5 text-xs font-bold shadow-[0_0_10px_#FACC15]}
+.nv{@apply px-3 py-1 rounded-full border-2 border-black font-bold text-sm bg-yellow-100 whitespace-nowrap}
+.nv.on{@apply bg-black text-yellow-300}
+</style></head><body class="min-h-screen">
+<header class="sticky top-0 z-30 bg-yellow-300 border-b-4 border-black px-3 py-2">
+<div class="flex items-center justify-between gap-2"><h1 class="text-xl cursor-pointer" onclick="go('home')">🐝 @bingbingvote</h1>
+<div class="flex items-center gap-2"><audio id="bgm" loop></audio><button class="b2" onclick="tgm()"><i class="fa-solid fa-music"></i></button>
+<button class="b" onclick="cart(1)"><i class="fa-solid fa-cart-shopping"></i> <span id="cc">0</span></button></div></div>
+<nav id="nav" class="flex gap-2 overflow-x-auto mt-2 pb-1"></nav></header>
+<main id="m" class="max-w-5xl mx-auto p-3"></main>
+<div id="ov" class="hidden fixed inset-0 bg-black/50 z-40" onclick="cart(0)"></div>
+<aside id="cp" class="fixed top-0 right-0 h-full w-full max-w-md bg-yellow-100 border-l-4 border-black z-50 translate-x-full transition-transform flex flex-col"></aside>
+<div id="zm" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onclick="this.classList.add('hidden')"><img id="zi" class="max-h-full rounded-xl border-4 border-yellow-300"></div>
+<div id="ts" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-[60] hidden bg-black text-yellow-300 px-4 py-2 rounded-full font-bold text-sm"></div>
+<script>
+const RATE=17000,PM=['QRIS','PayPal','SeaBank','GoPay','ShopeePay'];
+const D={cat:[{id:1,name:'Red Rubies',emoji:'💎',unit:'Rubies',bu:400,bp:1,disc:true},{id:2,name:'Star Gems',emoji:'⭐',unit:'Gems',bu:1000,bp:2,disc:true},{id:3,name:'Hearts',emoji:'💖',unit:'Hearts',bu:500,bp:1.5,disc:false}],
+events:[{id:1,title:'Weekly Idol Vote 🏆',end:Date.now()+6048e5},{id:2,title:'Fan Choice Awards 💛',end:Date.now()+2592e5}],
+sales:[],loy:{},testi:[{n:'@minji_fan',s:5,t:'Fast and trusted! 🐝'}],proofs:[],qris:'',pay:{PayPal:'bingbing@mail.com',SeaBank:'0000 0000 0000',GoPay:'08xx xxxx xxxx',ShopeePay:'08xx xxxx xxxx'},bgm:'',prof:{bio:'Your sweetest K-Pop voting service 🐝💛 Safe, fast, transparent.',fol:'10K',tw:'https://twitter.com/bingbingvote'}};
+let S=JSON.parse(localStorage.bbv||'null')||D;for(const k in D)if(!(k in S))S[k]=D[k];
+const sv=()=>localStorage.bbv=JSON.stringify(S);
+let V='home',cur='IDR',adm=false,tab='analytics',CT=JSON.parse(localStorage.bbvc||'[]'),LD=null;
+const $=i=>document.getElementById(i),sv2=()=>{localStorage.bbvc=JSON.stringify(CT);rc()};
+const fm=u=>cur=='IDR'?'IDR '+Math.round(u*RATE).toLocaleString():'$'+u.toFixed(2);
+const toast=t=>{const e=$('ts');e.textContent=t;e.classList.remove('hidden');setTimeout(()=>e.classList.add('hidden'),2200)};
+const cp=t=>{navigator.clipboard&&navigator.clipboard.writeText(t);toast('Copied ✨')};
+const esc=s=>String(s).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+const handle=h=>'@'+h.trim().replace(/^@/,'').toLowerCase();
+const price=(a,u)=>u/a.bu*a.bp;
+function tier(e){return e>=200?[7,3]:e>=150?[5,2]:e>=100?[3,1]:[0,0]}
+function calc(){let sub=0,el=0;CT.forEach(c=>{const a=S.cat.find(x=>x.id==c.id);if(!a)return;const p=price(a,c.u);sub+=p;if(a.disc)el+=p});
+const r=tier(el)[0],d=el*r/100,h=($('hd')?handle($('hd').value):''),coupon=(S.loy[h]||0)>=10&&sub>0?Math.min(3,sub-d):0;return{sub,el,r,d,coupon,tot:Math.max(0,sub-d-coupon)}}
+const badge=r=>r?`<span class="p">✨ ${r}% OFF 🐝</span>`:'<span class="p opacity-60">✨ Spend $100+ for 3% off</span>';
+function go(v){V=v;R()}
+function R(){const t=[['home','🏠 HOME'],['shop','🛍️ SHOP'],['loyalty','🐝 LOYALTY'],['wm','🖼️ GIVEAWAY WATERMARKER'],['testi','💬 TESTIMONIALS'],['prof','💛 PROFILE / ABOUT'],['admin','🔐 ADMIN']];
+$('nav').innerHTML=t.map(x=>`<button class="nv ${V==x[0]?'on':''}" onclick="go('${x[0]}')">${x[1]}</button>`).join('');
+$('m').innerHTML=Vw[V]();$('cc').textContent=CT.length;if(V=='wm')wmInit();if(V=='home')slide(0);rc()}
+const Vw={
+home(){return`<div class="c bg-yellow-200 text-center"><h2 class="text-2xl">Welcome to @bingbingvote 🐝💛</h2><p class="text-sm">K-Pop voting service • Rate $1 = IDR 17,000</p></div>
+<h3 class="mt-4 mb-2">🔥 Active Voting Events</h3><div class="c" id="car"></div>
+<div class="grid sm:grid-cols-3 gap-3 mt-4">${[[3,1],[5,2],[7,3]].map((x,i)=>`<div class="c text-center">${badge(x[0])}<p class="text-xs mt-2 font-semibold">Eligible purchases ≥ $${[100,150,200][i]}</p></div>`).join('')}</div>`},
+shop(){return`<h2 class="text-xl mb-2">🛍️ Catalog</h2><div class="grid sm:grid-cols-2 gap-3">${S.cat.map(a=>`<div class="c"><div class="flex justify-between"><h3>${a.emoji} ${esc(a.name)}</h3>${a.disc?'<span class="p">✨ Discount ON</span>':''}</div>
+<p class="text-sm my-1">Rate: <b>${a.bu.toLocaleString()} ${esc(a.unit)}</b> = $${a.bp.toFixed(2)} / IDR ${(a.bp*RATE).toLocaleString()}</p>
+<label class="text-xs font-bold">Desired total ${esc(a.unit)}</label><input id="u${a.id}" type="number" min="1" value="${a.bu}" class="i" oninput="pv(${a.id})">
+<div class="flex justify-between items-center mt-2"><b id="pv${a.id}">${fm(a.bp)}</b><button class="b" onclick="add(${a.id})">Add to cart 💛</button></div></div>`).join('')}</div>`},
+loyalty(){const h=handle(LD||'');const st=S.loy[h]||0;return`<div class="c"><h2 class="text-xl">🐝 Digital Loyalty Card</h2><p class="text-sm mb-2">Collect 10 stamps → $3.00 / IDR 50,000 coupon in your cart!</p>
+<input id="lh" class="i mb-2" placeholder="Your Twitter handle (@name)" value="${esc(LD||'')}" oninput="LD=this.value"><button class="b" onclick="R()">Check stamps</button>
+<div class="grid grid-cols-5 gap-2 mt-3">${Array.from({length:10},(_,i)=>`<div class="aspect-square border-2 border-black rounded-xl flex items-center justify-center text-2xl ${i<st%11?'bg-yellow-300':'bg-white opacity-60'}">${i<st?'🐝':''}</div>`).join('')}</div>
+<p class="mt-2 font-bold">${st>=10?'🎉 Coupon unlocked! Applied automatically at checkout.':st+' / 10 stamps'}</p></div>`},
+testi(){return`<h2 class="text-xl mb-2">💬 Reviews</h2><div class="grid sm:grid-cols-2 gap-3">${S.testi.map(t=>`<div class="c"><b>${esc(t.n)}</b> <span>${'⭐'.repeat(t.s)}</span><p class="text-sm">${esc(t.t)}</p></div>`).join('')}</div>
+<h3 class="mt-4 mb-2">📸 Chat Proofs</h3><div class="grid grid-cols-2 sm:grid-cols-4 gap-3">${S.proofs.map(p=>`<div class="c p-2"><img src="${p.img}" class="rounded-lg cursor-pointer" onclick="zoom('${p.img}')"><p class="text-xs mt-1">${esc(p.cap)}</p></div>`).join('')||'<p class="text-sm">No proofs yet.</p>'}</div>`},
+prof(){const p=S.prof;return`<div class="c p-0 overflow-hidden"><div class="h-28 bg-gradient-to-r from-yellow-300 to-yellow-500 border-b-2 border-black flex items-center justify-center text-5xl">🐝💛✨</div>
+<div class="p-4"><h2 class="text-2xl">@bingbingvote</h2><p class="my-2">${esc(p.bio)}</p><div class="flex flex-wrap gap-2"><span class="p">👥 ${esc(p.fol)} followers</span><span class="p">✅ ${S.sales.filter(s=>s.st=='Completed').length} orders completed</span></div>
+<a class="b inline-block mt-3" target="_blank" href="${esc(p.tw)}"><i class="fa-brands fa-twitter"></i> Twitter</a></div></div>`},
+wm(){return`<div class="c"><h2 class="text-xl mb-2">🖼️ Giveaway Watermarker</h2><input type="file" accept="image/*" class="i mb-2" onchange="wmL(this,'base')"><label class="text-xs font-bold">Logo image (optional, default is store text)</label><input type="file" accept="image/*" class="i mb-2" onchange="wmL(this,'logo')">
+<div class="grid grid-cols-3 gap-2 text-xs font-bold"><label>Scale<input id="ws" type="range" min="5" max="80" value="25" oninput="wmD()"></label><label>Opacity<input id="wo" type="range" min="10" max="100" value="70" oninput="wmD()"></label>
+<label>Position<select id="wp" class="i" onchange="wmD()"><option>Bottom Right</option><option>Bottom Left</option><option>Top Right</option><option>Top Left</option><option>Center</option></select></label></div>
+<canvas id="wc" class="w-full border-2 border-black rounded-xl mt-2 bg-white"></canvas><button class="b mt-2" onclick="wmS()">Download image</button></div>`},
+admin(){if(!adm)return`<div class="c max-w-sm mx-auto"><h2 class="text-xl mb-2">🔐 Admin Login</h2><input id="ai" class="i mb-2" placeholder="Admin ID"><input id="ap" type="password" class="i mb-2" placeholder="Password"><button class="b" onclick="login()">Login</button></div>`;
+const T=['analytics','events','loyalty','testimonials','receipt','catalog','manual'];return`<div class="flex gap-2 overflow-x-auto mb-3">${T.map(t=>`<button class="nv ${tab==t?'on':''}" onclick="tab='${t}';R()">${t.toUpperCase()}</button>`).join('')}<button class="nv" onclick="adm=false;R()">LOGOUT</button></div>`+A[tab]()}};
+// carousel
+let si=0,st=null;function slide(n){clearInterval(st);const ev=S.events.filter(e=>e.end>Date.now());if(!ev.length){$('car').innerHTML='No active events.';return}
+const draw=()=>{si=(si+n)%ev.length;n=0;const e=ev[si],ms=e.end-Date.now(),d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4),s=Math.floor(ms%6e4/1e3);
+if(!$('car'))return clearInterval(st);$('car').innerHTML=`<div class="text-center"><b class="text-lg">${esc(e.title)}</b><div class="mt-1"><span class="p">⏳ ${d}d ${h}h ${m}m ${s}s</span></div><div class="mt-1 text-xs">${ev.map((_,i)=>i==si?'🐝':'•').join(' ')}</div></div>`};
+draw();let k=0;st=setInterval(()=>{k++;if(k%5==0){si=(si+1)%ev.length}draw()},1000)}
+// shop & cart
+function pv(id){const a=S.cat.find(x=>x.id==id),u=+$('u'+id).value||0;$('pv'+id).textContent=fm(price(a,u))+' • '+u.toLocaleString()+' '+a.unit}
+function add(id){const u=Math.floor(+$('u'+id).value);if(!(u>0))return toast('Enter units first');const c=CT.find(x=>x.id==id);c?c.u+=u:CT.push({id,u});sv2();toast('Added 💛')}
+function cart(o){$('cp').classList.toggle('translate-x-full',!o);$('ov').classList.toggle('hidden',!o);rc()}
+function setU(i,v){CT[i].u=Math.max(1,Math.floor(+v)||1);sv2()}
+function rm(i){CT.splice(i,1);sv2()}
+function rc(){$('cc').textContent=CT.length;const k=calc(),keep=$('hd')?$('hd').value:'',kn=$('nt')?$('nt').value:'';
+$('cp').innerHTML=`<div class="p-3 bg-yellow-300 border-b-4 border-black flex justify-between items-center"><h2>🛒 Your Cart</h2><div class="flex gap-2"><button class="b2" onclick="cur=cur=='IDR'?'USD':'IDR';rc()">${cur=='IDR'?'IDR → USD':'USD → IDR'}</button><button class="b2" onclick="CT=[];sv2()">Clear</button><button onclick="cart(0)" class="text-xl">✕</button></div></div>
+<div class="overflow-y-auto p-3 space-y-2" style="height:68vh">${CT.map((c,i)=>{const a=S.cat.find(x=>x.id==c.id);if(!a)return'';return`<div class="c p-3"><div class="flex justify-between"><b>${a.emoji} ${esc(a.name)}</b><button onclick="rm(${i})">🗑️</button></div><input type="number" class="i my-1" value="${c.u}" onchange="setU(${i},this.value)">
+<div class="flex justify-between text-sm"><span class="p">Total Received: ${c.u.toLocaleString()} ${esc(a.unit)}</span><b>${fm(price(a,c.u))}</b></div></div>`}).join('')||'<p class="text-center mt-8">Your cart is empty 🐝</p>'}</div>
+<div class="p-3 border-t-4 border-black bg-yellow-200 space-y-1 text-sm"><input id="hd" class="i" placeholder="Your Twitter @handle" value="${esc(keep)}" onchange="rc()"><input id="nt" class="i" placeholder="Note (one line)" value="${esc(kn)}">
+<div class="flex justify-between flex-wrap">${badge(k.r)}<span>Subtotal ${fm(k.sub)}</span></div>${k.d?`<div class="flex justify-between"><span>Discount</span><span>-${fm(k.d)}</span></div>`:''}${k.coupon?`<div class="flex justify-between"><span>🐝 Loyalty coupon</span><span>-${fm(k.coupon)}</span></div>`:''}
+<div class="flex justify-between text-lg font-bold"><span>Total</span><span>${fm(k.tot)}</span></div><button class="b w-full" onclick="chk()">Checkout via Twitter DM 💌</button></div>`}
+function chk(){if(!CT.length)return toast('Cart is empty');const h=handle($('hd').value);if(h=='@')return toast('Enter your Twitter handle');const k=calc();
+const lines=CT.map(c=>{const a=S.cat.find(x=>x.id==c.id);return`• ${c.u.toLocaleString()} ${a.unit} (${a.name}) = $${price(a,c.u).toFixed(2)}`});
+const o={id:Date.now(),h,date:new Date().toLocaleString(),items:CT.map(c=>({...c,name:S.cat.find(x=>x.id==c.id).name,unit:S.cat.find(x=>x.id==c.id).unit,p:price(S.cat.find(x=>x.id==c.id),c.u)})),sub:k.sub,disc:k.d,cpn:k.coupon,tot:k.tot,st:'Pending',note:$('nt').value};S.sales.push(o);sv();
+const txt=`Hi @bingbingvote 🐝! Order from ${h}\n${lines.join('\n')}\nDiscount: -$${k.d.toFixed(2)} ${k.coupon?'| Loyalty coupon: -$'+k.coupon.toFixed(2):''}\nTotal: $${k.tot.toFixed(2)} / IDR ${Math.round(k.tot*RATE).toLocaleString()}\nNote: ${o.note||'-'}`;
+cp(txt);window.open('https://twitter.com/messages/compose?recipient_id=@bingbingvote','_blank');CT=[];sv2();cart(0)}
+// admin
+function login(){if($('ai').value=='ceo'&&$('ap').value=='606323'){adm=true;R()}else toast('Wrong credentials')}
+function done(id){const o=S.sales.find(x=>x.id==id);if(o.st=='Completed')return;o.st='Completed';if(o.cpn)S.loy[o.h]=Math.max(0,(S.loy[o.h]||0)-10);S.loy[o.h]=(S.loy[o.h]||0)+1;sv();R()}
+function dm(id){const o=S.sales.find(x=>x.id==id),t=`Hi ${o.h}! 🐝 Your order is completed 💛 Loyalty stamps: ${S.loy[o.h]||0}/10 ${(S.loy[o.h]||0)>=10?'🎉 You unlocked a $3 coupon!':''}`;cp(t);window.open('https://twitter.com/messages/compose?recipient_id='+o.h,'_blank')}
+function xl(){const w=XLSX.utils.json_to_sheet(S.sales.map(o=>({Date:o.date,Buyer:o.h,Items:o.items.map(i=>i.u+' '+i.unit).join(', '),Total_USD:+o.tot.toFixed(2),Status:o.st})));const b=XLSX.utils.book_new();XLSX.utils.book_append_sheet(b,w,'Sales');XLSX.writeFile(b,'bingbingvote_sales.xlsx')}
+const DMS=['Hi! Thanks for ordering 🐝 Please send your payment proof here 💛','Your payment is confirmed ✅ Processing votes now ✨','Votes are done! 🎉 Screenshot proof attached. Thank you!','Hi! Which app/account should we vote on? 🐝','Please complete payment within 24 hours so we can hold your slot 💛'];
+const fl=(e,f)=>{const r=new FileReader();r.onload=()=>f(r.result);r.readAsDataURL(e.files[0])};
+const A={
+analytics(){const c=S.sales.filter(o=>o.st=='Completed'),rev=c.reduce((a,o)=>a+o.tot,0);return`<div class="grid grid-cols-3 gap-2 mb-3"><div class="c text-center">Orders<br><b>${S.sales.length}</b></div><div class="c text-center">Completed<br><b>${c.length}</b></div><div class="c text-center">Revenue<br><b>$${rev.toFixed(2)}</b></div></div>
+<button class="b mb-2" onclick="xl()">📊 Export Excel</button><div class="c overflow-x-auto"><table class="w-full text-xs"><tr class="text-left"><th>Date</th><th>Buyer</th><th>Items</th><th>Total</th><th>Status</th><th></th></tr>${S.sales.slice().reverse().map(o=>`<tr class="border-t"><td>${o.date}</td><td>${esc(o.h)}</td><td>${o.items.map(i=>i.u+' '+esc(i.unit)).join(', ')}</td><td>$${o.tot.toFixed(2)}</td><td>${o.st}</td>
+<td>${o.st=='Pending'?`<button class="b2" onclick="done(${o.id})">Mark Paid ✅</button>`:`<button class="b2" onclick="dm(${o.id})">DM stamp 🐝</button>`}</td></tr>`).join('')}</table></div>
+<h3 class="mt-3 mb-1">⚡ Quick DM Templates</h3>${DMS.map((t,i)=>`<button class="c block w-full text-left text-xs mb-2 p-2" onclick="cp(DMS[${i}])">📋 ${t}</button>`).join('')}`},
+events(){return`<div class="c"><h3>Events</h3>${S.events.map((e,i)=>`<div class="flex gap-2 my-1 items-center"><input class="i" value="${esc(e.title)}" onchange="S.events[${i}].title=this.value;sv()"><input type="datetime-local" class="i" value="${new Date(e.end-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,16)}" onchange="S.events[${i}].end=new Date(this.value).getTime();sv()"><button onclick="S.events.splice(${i},1);sv();R()">🗑️</button></div>`).join('')}
+<button class="b mt-2" onclick="S.events.push({id:Date.now(),title:'New Event',end:Date.now()+864e5});sv();R()">+ Event</button>
+<h3 class="mt-3">Profile</h3><textarea class="i my-1" onchange="S.prof.bio=this.value;sv()">${esc(S.prof.bio)}</textarea><input class="i my-1" value="${esc(S.prof.fol)}" placeholder="Followers" onchange="S.prof.fol=this.value;sv()"><input class="i my-1" value="${esc(S.prof.tw)}" onchange="S.prof.tw=this.value;sv()"><h3 class="mt-3">BGM link (mp3 URL)</h3><input class="i" value="${esc(S.bgm)}" onchange="S.bgm=this.value;sv()"></div>`},
+loyalty(){return`<div class="c"><h3>Loyalty Stamps</h3>${Object.entries(S.loy).map(([h,n])=>`<div class="flex justify-between items-center my-1"><b>${esc(h)}</b><span>${n}/10 <button class="b2" onclick="S.loy['${esc(h)}']=Math.max(0,${n}-1);sv();R()">−</button> <button class="b2" onclick="S.loy['${esc(h)}']=${n}+1;sv();R()">+</button></span></div>`).join('')||'<p class="text-sm">No stamps yet.</p>'}
+<input id="nh" class="i mt-2" placeholder="@handle"><button class="b mt-2" onclick="S.loy[handle($('nh').value)]=1;sv();R()">Add buyer</button></div>`},
+testimonials(){return`<div class="c"><h3>Add review</h3><input id="tn" class="i my-1" placeholder="@name"><input id="tt" class="i my-1" placeholder="Review"><select id="ts2" class="i my-1">${[5,4,3].map(n=>`<option>${n}</option>`).join('')}</select><button class="b" onclick="S.testi.push({n:$('tn').value,t:$('tt').value,s:+$('ts2').value});sv();R()">Add</button>
+<h3 class="mt-3">Chat proof</h3><input id="pc" class="i my-1" placeholder="Caption"><input type="file" accept="image/*" class="i" onchange="fl(this,d=>{S.proofs.push({img:d,cap:$('pc').value});sv();R()})">
+${S.testi.map((t,i)=>`<div class="text-xs mt-2">${esc(t.n)}: ${esc(t.t)} <button onclick="S.testi.splice(${i},1);sv();R()">🗑️</button></div>`).join('')}${S.proofs.map((p,i)=>`<button class="b2 m-1" onclick="S.proofs.splice(${i},1);sv();R()">Delete proof ${i+1}</button>`).join('')}</div>`},
+receipt(){return`<div class="c"><h3>🧾 Receipt Generator</h3><select id="rs" class="i my-1" onchange="rr()"><option value="">Select order…</option>${S.sales.map(o=>`<option value="${o.id}">${esc(o.h)} • $${o.tot.toFixed(2)}</option>`).join('')}</select>
+<select id="rm" class="i my-1" onchange="rr()">${PM.map(p=>`<option>${p}</option>`).join('')}</select><input id="rd" type="number" step="0.01" class="i my-1" placeholder="Special Deal / Negotiated Cut (USD)" oninput="rr()"><div id="rv" class="my-2"></div><button class="b" onclick="rdl()">Download Receipt as Image (.png)</button></div>`},
+catalog(){return`<div class="c"><h3>Catalog</h3>${S.cat.map((a,i)=>`<div class="grid grid-cols-6 gap-1 my-1 text-xs items-center"><input class="i" value="${a.emoji}" onchange="S.cat[${i}].emoji=this.value;sv()"><input class="i" value="${esc(a.name)}" onchange="S.cat[${i}].name=this.value;sv()"><input class="i" value="${esc(a.unit)}" onchange="S.cat[${i}].unit=this.value;sv()"><input type="number" class="i" value="${a.bu}" onchange="S.cat[${i}].bu=+this.value||1;sv()"><input type="number" step=".01" class="i" value="${a.bp}" onchange="S.cat[${i}].bp=+this.value||1;sv()"><label><input type="checkbox" ${a.disc?'checked':''} onchange="S.cat[${i}].disc=this.checked;sv()"> Discount <button onclick="S.cat.splice(${i},1);sv();R()">🗑️</button></label></div>`).join('')}
+<p class="text-xs">Columns: emoji, name, unit, base units, base price USD, discount toggle</p><button class="b my-2" onclick="S.cat.push({id:Date.now(),name:'New App',emoji:'🎵',unit:'Votes',bu:100,bp:1,disc:true});sv();R()">+ Add app</button>
+<h3 class="mt-3">Payment</h3><label class="text-xs font-bold">QRIS image</label><input type="file" accept="image/*" class="i" onchange="fl(this,d=>{S.qris=d;sv();toast('QRIS saved')})">${PM.slice(1).map(p=>`<input class="i my-1" placeholder="${p} account details" value="${esc(S.pay[p]||'')}" onchange="S.pay['${p}']=this.value;sv()">`).join('')}</div>`},
+manual(){return`<div class="c"><h3>Manual Order Logger</h3><input id="mh" class="i my-1" placeholder="@handle"><input id="mi" class="i my-1" placeholder="Items description"><input id="mt" type="number" step=".01" class="i my-1" placeholder="Total USD"><button class="b" onclick="S.sales.push({id:Date.now(),h:handle($('mh').value),date:new Date().toLocaleString(),items:[{u:0,unit:$('mi').value,name:'Manual'}],tot:+$('mt').value||0,sub:+$('mt').value||0,disc:0,cpn:0,st:'Pending'});sv();toast('Logged');R()">Log order</button></div>`}};
+function rr(){const o=S.sales.find(x=>x.id==$('rs').value),m=$('rm').value,cut=+$('rd').value||0;if(!o){$('rv').innerHTML='';return}
+const tot=Math.max(0,o.tot-cut);$('rv').innerHTML=`<div id="rc" class="bg-yellow-100 border-2 border-black rounded-2xl p-4 max-w-sm mx-auto text-sm"><div class="text-center"><div class="text-4xl">🐝</div><h3>@bingbingvote</h3><p class="text-xs">Official Receipt • ${o.date}</p></div><hr class="border-black my-2"><p>Buyer: <b>${esc(o.h)}</b></p>
+${o.items.map(i=>`<div class="flex justify-between border-b border-dashed py-1"><span>${i.u?i.u.toLocaleString()+' ':''}${esc(i.unit)}</span><span>${i.p!=null?'$'+i.p.toFixed(2):''}</span></div>`).join('')}
+<div class="flex justify-between mt-1"><span>Discount</span><span>-$${(o.disc+(o.cpn||0)).toFixed(2)}</span></div>${cut?`<div class="flex justify-between"><span>✨ Special Deal</span><span>-$${cut.toFixed(2)}</span></div>`:''}
+<div class="flex justify-between font-bold text-base mt-1"><span>Total</span><span>$${tot.toFixed(2)} / IDR ${Math.round(tot*RATE).toLocaleString()}</span></div><div class="text-center mt-3 border-t-2 border-black pt-2"><b>Pay via ${m}</b>
+${m=='QRIS'?(S.qris?`<img src="${S.qris}" class="mx-auto w-40 mt-1">`:'<p class="text-xs">Upload QRIS in Catalog tab</p>'):`<p class="mt-1 break-all">${esc(S.pay[m]||'Set account details in Catalog tab')}</p>`}<p class="text-xs mt-2">Thank you 💛🐝</p></div></div>`}
+function rdl(){const e=$('rc');if(!e)return toast('Select an order');html2canvas(e,{scale:2,useCORS:true}).then(c=>{const a=document.createElement('a');a.download='receipt.png';a.href=c.toDataURL();a.click()})}
+// watermark
+let WB=null,WL=null;function wmL(e,k){const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{k=='base'?WB=im:WL=im;wmD()};im.src=r.result};r.readAsDataURL(e.files[0])}
+function wmInit(){wmD()}
+function wmD(){const c=$('wc');if(!c)return;const x=c.getContext('2d');if(!WB){c.width=600;c.height=300;x.fillStyle='#FEF9C3';x.fillRect(0,0,600,300);x.fillStyle='#000';x.font='20px sans-serif';x.fillText('Upload proof media 🐝',190,150);return}
+c.width=WB.width;c.height=WB.height;x.drawImage(WB,0,0);const sc=$('ws').value/100,w=c.width*sc;x.globalAlpha=$('wo').value/100;let lw,lh;
+if(WL){lw=w;lh=w*WL.height/WL.width}else{x.font=`bold ${w/8}px Comfortaa,sans-serif`;lw=x.measureText('🐝 @bingbingvote').width;lh=w/8*1.3}
+const p=$('wp').value,m=c.width*.03,X=p.includes('Right')?c.width-lw-m:p.includes('Left')?m:(c.width-lw)/2,Y=p.includes('Bottom')?c.height-lh-m:p.includes('Top')?m:(c.height-lh)/2;
+if(WL)x.drawImage(WL,X,Y,lw,lh);else{x.fillStyle='#FDE047';x.strokeStyle='#000';x.lineWidth=w/60;x.textBaseline='top';x.strokeText('🐝 @bingbingvote',X,Y);x.fillText('🐝 @bingbingvote',X,Y)}x.globalAlpha=1}
+function wmS(){const c=$('wc');if(!WB)return toast('Upload media first');const a=document.createElement('a');a.download='watermarked.png';a.href=c.toDataURL();a.click()}
+function zoom(s){$('zi').src=s;$('zm').classList.remove('hidden')}
+function tgm(){const a=$('bgm');if(!S.bgm)return toast('Admin has not set BGM');if(!a.src||a.src!=S.bgm)a.src=S.bgm;a.paused?a.play():a.pause()}
+R();
+</script></body></html>
