@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>@bingbingvote – K-Pop Voting Specialist</title>
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Inter:wght@400;500;600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -44,6 +44,37 @@ body::before{background-color:#FDE047;background-image:conic-gradient(rgba(0,0,0
 .inp:focus{border-color:#000;box-shadow:0 0 0 3px #FDE047}
 .pill{border:2px solid #000}
 .hbtn:hover,.hbtn.on{background:#FDE047}
+
+.dpill{display:inline-flex;align-items:center;gap:.3rem;border:2px solid #000;border-radius:9999px;padding:.2rem .65rem;font-size:.7rem;font-weight:700;line-height:1.25;background:linear-gradient(90deg,#FEF9C3,#FDE047);box-shadow:0 0 10px rgba(250,204,21,.85);animation:glow 2.6s ease-in-out infinite}
+.dpill.off{background:#fff;border-style:dashed;box-shadow:none;animation:none;opacity:.75}
+@keyframes glow{0%,100%{box-shadow:0 0 5px rgba(250,204,21,.6)}50%{box-shadow:0 0 14px rgba(250,204,21,1)}}
+@media (prefers-reduced-motion:reduce){.dpill{animation:none}}
+
+/* ===== CUTE PASTEL YELLOW THEME OVERRIDES ===== */
+body{font-family:'Quicksand','Inter',sans-serif;background:#FFFBEB;color:#78350F}
+body::before{background-color:#FFFBEB;background-image:radial-gradient(#FDE047 3.5px,transparent 4px),radial-gradient(#FBCFE8 3.5px,transparent 4px);background-size:46px 46px;background-position:0 0,23px 23px;background-attachment:fixed;position:fixed}
+.brand{font-family:'Comfortaa','Quicksand',sans-serif;color:#92400E}
+.card{border:2.5px solid #FDE68A;border-radius:1.75rem;box-shadow:0 8px 20px rgba(251,207,232,.45),0 3px 0 #FBCFE8;background:#FFFEF7}
+.card:hover{box-shadow:0 12px 26px rgba(251,207,232,.6),0 3px 0 #F9A8D4}
+.btn{background:linear-gradient(135deg,#FDE047,#FEF08A);border:2px solid #F59E0B;color:#78350F;box-shadow:0 3px 0 #FBCFE8;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s}
+.btn:hover{background:linear-gradient(135deg,#FACC15,#FDE047);transform:scale(1.03)}
+.btn:active{transform:scale(.97)}
+.btn.alt{background:#fff;border:2px solid #FBCFE8;color:#92400E}
+.inp{border:2px solid #FDE68A;border-radius:1rem;background:#FFFEF5;color:#78350F}
+.inp:focus{border-color:#F59E0B;box-shadow:0 0 0 3px #FBCFE8}
+.pill{border:2px solid #FBCFE8;background:#fff;color:#92400E;transition:transform .18s cubic-bezier(.34,1.56,.64,1)}
+.pill:hover{transform:scale(1.04)}.pill.on{background:#FDE047;border-color:#F59E0B}
+.border-black{border-color:#F59E0B!important}
+.border-dashed.border-black{border-color:#FBCFE8!important}
+#ticker{background:linear-gradient(90deg,#FCE7F3,#FEF08A,#FCE7F3)!important;border-color:#FBCFE8!important;color:#92400E}
+#badge{background:#F472B6!important;color:#fff!important}
+#toast{background:#92400E!important;color:#FFFBEB!important;border:2px solid #FBCFE8}
+.dpill{border:2px solid #FBCFE8;background:linear-gradient(90deg,#FCE7F3,#FEF9C3,#FDE047);color:#92400E;box-shadow:0 0 12px rgba(244,114,182,.5);animation:glow2 2.6s ease-in-out infinite}
+.dpill.off{background:#fff;border:2px dashed #FBCFE8;box-shadow:none;animation:none;opacity:.8}
+@keyframes glow2{0%,100%{box-shadow:0 0 6px rgba(251,207,232,.8)}50%{box-shadow:0 0 16px rgba(250,204,21,.95)}}
+@media (prefers-reduced-motion:reduce){.dpill{animation:none}.btn:hover,.pill:hover{transform:none}}
+#cart,#menu{background:#FFFBEB}
+.bb-sched{font-size:.75rem}
 </style>
 </head>
 <body>
@@ -72,13 +103,10 @@ body::before{background-color:#FDE047;background-image:conic-gradient(rgba(0,0,0
     <button class="mi" data-t="profile" onclick="go('profile')"><i class="fa-solid fa-user w-5"></i>PROFILE</button>
     <button class="mi" data-t="testi" onclick="go('testi')"><i class="fa-solid fa-star w-5"></i>TESTIMONIALS</button>
     <button class="mi" onclick="openLoy()"><i class="fa-solid fa-id-card w-5"></i>LOYALTY</button>
-    <button class="mi" onclick="goWm()"><i class="fa-solid fa-image w-5"></i>WATERMARKER</button>
     <button class="mi" data-t="admin" onclick="go('admin')"><i class="fa-solid fa-lock w-5"></i>ADMIN DASHBOARD</button>
   </nav>
   <div class="mt-auto p-4 text-xs opacity-60">Vote together, win together 💛</div>
 </aside>
-
-
 
 <main class="max-w-6xl mx-auto px-4 py-6 pb-24">
 
@@ -103,7 +131,7 @@ body::before{background-color:#FDE047;background-image:conic-gradient(rgba(0,0,0
 
   <section id="shop" class="hidden">
     <h2 class="brand text-2xl mb-1">Shop 🌸</h2>
-    <p id="shopNote" class="text-sm opacity-80 mb-4"></p>
+    <div id="shopNote" class="mb-4"></div>
     <div class="relative mb-3">
       <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 opacity-50"></i>
       <input id="search" class="inp pl-9" placeholder="Search voting apps...">
@@ -149,9 +177,9 @@ body::before{background-color:#FDE047;background-image:conic-gradient(rgba(0,0,0
         <button class="pill" data-a="home" onclick="aTab('home')">🏠 Home, Events & Profile</button>
         <button class="pill" data-a="loy" onclick="aTab('loy')">🐝 Loyalty Manager</button>
         <button class="pill" data-a="tm" onclick="aTab('tm')">📸 Testimonials & Proof</button>
-        <button class="pill" data-a="rc" onclick="aTab('rc')">🧾 Receipt Generator</button>
-        <button class="pill" data-a="wm" onclick="aTab('wm')">🖼️ Watermarker</button>
+        <button class="pill" data-a="rc" onclick="aTab('rc')">Receipt Generator</button>
         <button class="pill" data-a="cat" onclick="aTab('cat')">🛍️ Catalog & Reorder</button>
+        <button class="pill" data-a="pb" onclick="aTab('pb')">🎨 Promo Banner Studio</button>
         <button class="pill" data-a="log" onclick="aTab('log')">📝 Order Logger</button></div>
 <div id="at-stats" class="space-y-6"><div class="grid sm:grid-cols-3 gap-4" id="stats"></div>
       <div class="flex gap-2 items-center flex-wrap"><input id="sSearch" class="inp !w-full sm:!w-72" placeholder="Search orders..." oninput="sLim=10;renderAdmin()"><span id="sCount" class="text-xs opacity-60"></span></div><div class="card p-4 overflow-x-auto">
@@ -193,7 +221,7 @@ body::before{background-color:#FDE047;background-image:conic-gradient(rgba(0,0,0
       </div>
 <div id="at-loy" class="space-y-6 hidden">
   <form id="lyForm" class="card p-5 grid sm:grid-cols-6 gap-3 items-end"><h3 class="brand text-lg sm:col-span-6">🐝 Loyalty Manager</h3>
-    <p class="sm:col-span-6 text-xs opacity-70">A stamp is added automatically when an order is marked Completed (one stamp per order). 10 stamps = 1 voucher. Use this form to add a handle or set exact values.</p>
+    <p class="sm:col-span-6 text-xs opacity-70">A stamp is added automatically when an order of at least IDR 50.000 ($3 USD) is marked Completed (one stamp per order). 10 stamps = 1 voucher.</p>
     <div class="sm:col-span-2"><label class="text-xs">Twitter handle</label><input id="lyH" class="inp" placeholder="@username" required></div>
     <div><label class="text-xs">Stamps (0-9)</label><input id="lyS" type="number" min="0" max="9" value="0" class="inp"></div>
     <div><label class="text-xs">Vouchers</label><input id="lyVc" type="number" min="0" value="0" class="inp"></div>
@@ -201,20 +229,17 @@ body::before{background-color:#FDE047;background-image:conic-gradient(rgba(0,0,0
   <form id="lyVForm" class="card p-5 flex gap-3 items-end flex-wrap"><div><label class="text-xs">Voucher label (USD)</label><input id="lyVu" type="number" min="0" step="0.5" class="inp"></div><div><label class="text-xs">Voucher value deducted (IDR)</label><input id="lyVi" type="number" min="0" step="1000" class="inp"></div><button class="btn">Save voucher</button></form>
   <div class="card p-5"><div class="flex gap-2 items-center flex-wrap mb-3"><h3 class="brand text-lg">Stamp holders</h3><input id="lySearch" class="inp !w-full sm:!w-60" placeholder="Search handle..." oninput="renderLoyMgr()"></div><div id="lyList" class="space-y-2"></div></div>
 </div>
-<div id="at-wm" class="space-y-6 hidden">
-  <div class="card p-5 space-y-3"><h3 class="brand text-lg">🖼️ Giveaway Watermarker</h3>
-    <p class="text-xs opacity-70">Upload proof media (an image), overlay the store logo, adjust the look, and download. Files stay in your browser.</p>
+<div id="at-pb" class="space-y-6 hidden">
+  <div class="card p-5 space-y-3"><h3 class="brand text-lg">🎨 Promo Banner Studio</h3>
     <div class="grid sm:grid-cols-2 gap-3">
-      <div><label class="text-xs">Proof image</label><input id="wmFile" type="file" accept="image/*" class="text-xs w-full"></div>
-      <div><label class="text-xs">Custom watermark (optional, default is the store logo)</label><input id="wmLogoF" type="file" accept="image/*" class="text-xs w-full"></div>
-      <div><label class="text-xs">Size: <span id="wmSv">25</span>%</label><input id="wmScale" type="range" min="5" max="70" value="25" class="w-full"></div>
-      <div><label class="text-xs">Opacity: <span id="wmOv">70</span>%</label><input id="wmOp" type="range" min="10" max="100" value="70" class="w-full"></div>
-      <div><label class="text-xs">Position</label><select id="wmPos" class="inp"><option value="tl">Top left</option><option value="tc">Top center</option><option value="tr">Top right</option><option value="ml">Middle left</option><option value="c">Center</option><option value="mr">Middle right</option><option value="bl">Bottom left</option><option value="bc">Bottom center</option><option value="br" selected>Bottom right</option><option value="tile">Tiled across the image</option></select></div>
-      <label class="flex items-center gap-2 text-sm self-end"><input id="wmTxt" type="checkbox" checked> Add @bingbingvote text</label>
+      <div><label class="text-xs">Template</label><select id="pbTpl" class="inp"><option value="list">📋 Dynamic Price List Banner</option><option value="sale">⚡ Flash Sale / Event Promo</option><option value="ann">📢 General Announcement</option><option value="done">✨ Vote Completed / Share Proof</option></select></div>
+      <div><label class="text-xs">Color theme</label><select id="pbTheme" class="inp"><option value="yellow">🌼 Butter Yellow</option><option value="pink">🌸 Soft Pink</option><option value="cream">🍦 Cream White</option></select></div>
     </div>
-    <p id="wmEmpty" class="text-sm opacity-60 text-center py-8">Upload an image to start.</p>
-    <canvas id="wmCv" class="w-full max-w-xl mx-auto rounded-xl border-2 border-black bg-white hidden"></canvas>
-    <button id="wmDl" class="btn hidden">Download watermarked image (.png)</button></div>
+    <div id="pbForm" class="grid sm:grid-cols-2 gap-3"></div>
+  </div>
+  <div class="card p-5 space-y-3"><h3 class="brand text-lg">👀 Live Preview</h3>
+    <div class="overflow-x-auto"><div id="pbCanvas" style="width:540px;margin:0 auto"></div></div>
+    <button id="pbDl" class="btn w-full"><i class="fa-solid fa-download mr-1"></i>Download Promo Banner (.PNG)</button></div>
 </div>
 <div id="at-tm" class="space-y-6 hidden">
   <form id="tmForm" class="card p-5 grid sm:grid-cols-6 gap-3 items-end">
@@ -232,7 +257,7 @@ body::before{background-color:#FDE047;background-image:conic-gradient(rgba(0,0,0
 <div id="at-rc" class="space-y-6 hidden">
   <div class="card p-5 space-y-3">
     <h3 class="brand text-lg">🔳 QRIS Image</h3>
-    <p class="text-xs opacity-70">Upload your QRIS image (under 500 KB). Only the QR code is shown on receipts, blended into the pastel background. Use the trim boxes to cut off headers or logos, then test-scan the preview with your banking app.</p>
+    <p class="text-xs opacity-70">Upload your QRIS image (under 500 KB). The QR code is shown only on receipts paid with QRIS, blended into the pastel background. Use the trim boxes to cut off headers or logos, then test-scan the preview with your banking app.</p>
     <div class="flex flex-wrap gap-3 items-start">
       <div class="w-40 h-40 rounded-2xl bg-[#FFFBEB] border-2 border-dashed border-black flex items-center justify-center overflow-hidden"><img id="qrPrev" alt="QRIS preview" class="max-w-full max-h-full hidden"><span id="qrEmpty" class="text-xs opacity-60 text-center px-2">No QRIS uploaded yet</span></div>
       <div class="flex-1 min-w-[220px] space-y-2">
@@ -242,11 +267,14 @@ body::before{background-color:#FDE047;background-image:conic-gradient(rgba(0,0,0
       </div>
     </div>
   </div>
+  <div class="card p-5 space-y-3"><h3 class="brand text-lg">💳 Payment Account Details</h3><p class="text-xs opacity-70">Saved defaults for non-QRIS methods. They fill in automatically on receipts for that method, and you can still edit them per receipt.</p>
+    <form id="payForm" class="space-y-3"><div id="payFields" class="grid sm:grid-cols-2 gap-3"></div><button class="btn">Save payment details</button></form></div>
   <form id="rcForm" class="card p-5 grid sm:grid-cols-6 gap-3 items-end">
     <h3 class="brand text-lg sm:col-span-6">🧾 Digital Receipt Generator</h3>
     <div class="sm:col-span-3"><label class="text-xs">Customer handle</label><input id="rcBuyer" class="inp" placeholder="@username" required></div>
     <div class="sm:col-span-2"><label class="text-xs">Payment method</label><select id="rcPay" class="inp"></select></div>
     <div><label class="text-xs">Currency</label><select id="rcCur" class="inp"><option>IDR</option><option>USD</option></select></div>
+    <div id="rcDetWrap" class="sm:col-span-6"><label class="text-xs" id="rcDetL">Payment account details</label><input id="rcPayDet" class="inp" placeholder="e.g. PayPal email or bank account number"></div>
     <div class="sm:col-span-6 text-xs opacity-70 -mb-1">Items: choose an app and enter the total units. The price is calculated from the app's catalog rate. Use "Custom item" for anything else.</div>
     <div id="rcRows" class="sm:col-span-6 space-y-2"></div>
     <div class="sm:col-span-6"><button type="button" class="btn alt text-sm" onclick="addRc()">+ Add item</button></div>
@@ -254,8 +282,9 @@ body::before{background-color:#FDE047;background-image:conic-gradient(rgba(0,0,0
     <div class="sm:col-span-2"><label class="text-xs">Special deal / negotiated cut (optional)</label><input id="rcDisc" type="number" min="0" step="0.01" class="inp" placeholder="0"></div>
     <div class="sm:col-span-2"><label class="text-xs">Discount currency</label><select id="rcDiscCur" class="inp"><option>IDR</option><option>USD</option></select></div>
     <div class="sm:col-span-2"><label class="text-xs">Final amount (auto)</label><input id="rcFinal" readonly class="inp font-bold"></div>
+    <div class="sm:col-span-2"><label class="text-xs">🗓️ Voting schedule</label><select id="rcSched" class="inp"><option value="asap">⚡ Instant / ASAP</option><option value="date">🗓️ Scheduled Date</option></select><input id="rcDate" type="date" class="inp mt-1 hidden"></div>
     <div class="sm:col-span-4"><label class="text-xs">Note (optional)</label><input id="rcNote" class="inp" placeholder="e.g. Votes will be sent within 24 hours"></div>
-    <label class="sm:col-span-3 flex items-center gap-2 text-sm"><input id="rcQr" type="checkbox" checked> Show QRIS code on receipt</label>
+    <div class="sm:col-span-3 text-xs font-semibold" id="rcPayInfo"></div>
     <label class="sm:col-span-3 flex items-center gap-2 text-sm"><input id="rcLog" type="checkbox" checked> Also log this sale (Completed)</label>
     <button class="btn sm:col-span-6">Generate receipt</button>
   </form>
@@ -302,6 +331,7 @@ body::before{background-color:#FDE047;background-image:conic-gradient(rgba(0,0,0
   <div class="p-3 border-t-2 border-black bg-white space-y-1.5 max-h-[38vh] overflow-y-auto">
     <div class="grid grid-cols-2 gap-1.5"><input id="cUser" class="inp !py-1.5 text-sm" placeholder="@username" aria-label="Twitter handle"><select id="cPay" class="inp !py-1.5 text-sm" aria-label="Payment method"></select></div>
     <input id="cNote" class="inp !py-1.5 text-sm" placeholder="Notes / in-game ID (one line)">
+    <div class="flex gap-1.5"><select id="cSched" class="inp !py-1.5 text-xs flex-1" aria-label="Voting schedule"><option value="asap">⚡ Instant / As Soon As Possible (ASAP)</option><option value="date">🗓️ Scheduled Date</option></select><input id="cDate" type="date" class="inp !py-1.5 text-xs flex-1 hidden" aria-label="Scheduled date"></div>
     <div id="cVouch"></div>
     <div class="text-xs space-y-0.5" id="cSum"></div>
     <div class="flex gap-1.5"><button id="clearCart" class="btn alt !py-1.5 !px-3 text-xs shrink-0"><i class="fa-solid fa-trash-can mr-1"></i>Clear</button><button id="checkout" class="btn flex-1 !py-2 text-sm"><i class="fa-brands fa-twitter mr-1"></i>Checkout via Twitter DM</button></div>
@@ -337,19 +367,39 @@ body::before{background-color:#FDE047;background-image:conic-gradient(rgba(0,0,0
  <div><label class="text-xs">Ends at (your local time)</label><input id="pEnd" type="datetime-local" class="inp" required></div>
  <input id="pLink" class="inp" placeholder="Direct voting / order link (https://...)">
  <button class="btn w-full">Save voting event</button></form></div>
+<div id="eoM" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4"><form id="eoF" class="card p-5 w-full max-w-lg pop max-h-[92vh] overflow-y-auto grid sm:grid-cols-6 gap-3 items-end">
+  <div class="sm:col-span-6 flex justify-between"><h3 class="brand text-lg">✏️ Edit Order</h3><button type="button" onclick="closeM('eoM')" aria-label="Close"><i class="fa-solid fa-xmark text-lg"></i></button></div>
+  <div class="sm:col-span-3"><label class="text-xs">Buyer handle</label><input id="eoBuyer" class="inp" required></div>
+  <div class="sm:col-span-3"><label class="text-xs">App</label><select id="eoApp" class="inp"></select></div>
+  <div class="sm:col-span-6"><label class="text-xs">Package / description</label><input id="eoPkg" class="inp"></div>
+  <div class="sm:col-span-2"><label class="text-xs">Total units / quantity</label><input id="eoUnits" type="number" min="0" step="any" class="inp"></div>
+  <div class="sm:col-span-2"><label class="text-xs">Units per $1 (base rate)</label><input id="eoRate" type="number" min="0" step="any" class="inp"></div>
+  <div class="sm:col-span-2"><label class="text-xs">Currency</label><select id="eoCur" class="inp"><option>IDR</option><option>USD</option></select></div>
+  <div class="sm:col-span-6"><button type="button" class="btn alt text-sm" onclick="eoRecalc()">↻ Recalculate price from units &amp; rate</button></div>
+  <div class="sm:col-span-2"><label class="text-xs">Gross price</label><input id="eoGross" type="number" min="0" step="0.01" class="inp"></div>
+  <div class="sm:col-span-2"><label class="text-xs">Negotiated cut</label><input id="eoCut" type="number" min="0" step="0.01" class="inp" value="0"></div>
+  <div class="sm:col-span-2"><label class="text-xs">Final total (editable)</label><input id="eoTotal" type="number" min="0" step="0.01" class="inp font-bold"></div>
+  <div class="sm:col-span-2"><label class="text-xs">Payment method</label><select id="eoPay" class="inp"></select></div>
+  <div class="sm:col-span-4"><label class="text-xs">Payment account details</label><input id="eoPayDet" class="inp" placeholder="e.g. PayPal email or bank account number"></div>
+  <div class="sm:col-span-3"><label class="text-xs">🗓️ Voting schedule</label><select id="eoSched" class="inp"><option value="asap">⚡ Instant / ASAP</option><option value="date">🗓️ Scheduled Date</option></select><input id="eoDate" type="date" class="inp mt-1 hidden"></div>
+  <div class="sm:col-span-2"><label class="text-xs">Status</label><select id="eoStatus" class="inp"><option>Pending</option><option>In Progress</option><option>Completed</option></select></div>
+  <p class="sm:col-span-4 text-xs opacity-70">Changing the cut updates the final total, and editing the final total updates the cut. Marking an order Completed adds a loyalty stamp.</p>
+  <div class="sm:col-span-6 flex gap-2 flex-wrap"><button class="btn">Save changes</button><button type="button" class="btn alt" onclick="receiptFromSale()">Receipt</button><button type="button" class="btn alt" onclick="closeM('eoM')">Cancel</button></div>
+</form></div>
 <div id="loyM" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4" onclick="closeM('loyM')"><div class="card p-5 w-full max-w-sm pop max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
   <div class="flex justify-between mb-2"><h3 class="brand text-lg">🐝 Loyalty Card</h3><button onclick="closeM('loyM')" aria-label="Close"><i class="fa-solid fa-xmark text-lg"></i></button></div>
-  <p class="text-xs opacity-75 mb-2">Earn 1 stamp for every completed order. Collect 10 stamps to unlock a <b id="loyVal"></b> voucher.</p>
+  <p class="text-xs opacity-75 mb-2">Earn 1 stamp for every completed order (min. IDR 50K / $3). Collect 10 stamps to unlock a <b id="loyVal"></b> voucher.</p>
   <div class="flex gap-2 mb-3"><input id="loyIn" class="inp" placeholder="@username"><button class="btn shrink-0" onclick="loyCheck()">Check</button></div><div id="loyOut"></div></div></div>
-<div id="loyDmM" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4"><div class="card p-5 w-full max-w-md pop space-y-2">
+<div id="loyDmM" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4"><div class="card p-5 w-full max-w-md pop space-y-2 max-h-[92vh] overflow-y-auto">
   <div class="flex justify-between"><h3 class="brand text-lg">🐝 Loyalty Stamp Update</h3><button onclick="closeM('loyDmM')" aria-label="Close"><i class="fa-solid fa-xmark text-lg"></i></button></div>
+  <div id="ldCard"></div><button id="ldPng" class="btn alt w-full text-sm"><i class="fa-solid fa-download mr-1"></i>Download Loyalty Card (.PNG)</button>
   <div class="text-xs">Send to: <b id="ldTo"></b></div><textarea id="ldText" class="inp text-sm" rows="5"></textarea>
   <button id="ldSend" class="btn w-full"><i class="fa-brands fa-twitter mr-1"></i>Send Loyalty Stamp Update to Twitter DM</button><button id="ldCopy" class="btn alt w-full text-sm">Copy message only</button></div></div>
 <div id="guideM" class="fixed inset-0 z-[60] hidden items-center justify-center bg-[#18181B]/50 p-4" onclick="closeM('guideM')">
  <div class="card p-5 w-full max-w-md pop max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
   <div class="flex justify-between mb-2"><h3 class="brand text-lg">How to order 💌</h3><button onclick="closeM('guideM')" aria-label="Close"><i class="fa-solid fa-xmark text-lg"></i></button></div>
   <ol class="space-y-2 text-sm list-decimal pl-5">
-   <li>Open the <b>Shop</b> or pick from the featured apps on Home. Choose a package and quantity, then tap <b>Add to Cart</b>.</li>
+   <li>Open the <b>Shop</b> or pick from the featured apps on Home. Choose a package rate, type the <b>total units</b> you want (for example 40000), then tap <b>Add to Cart</b>.</li>
    <li>Open the <b>cart</b>. Pick IDR or USD, choose your payment method, and enter your Twitter handle and any notes.</li>
    <li id="gDisc"></li>
    <li>Tap <b>Checkout via Twitter DM</b>. Your order text is copied and a DM to @bingbingvote opens.</li>
@@ -393,7 +443,7 @@ const idr=n=>'IDR '+Math.round(n).toLocaleString('en-US');
 const usd=n=>'$'+n.toFixed(2);
 let cur='IDR';
 const fmt=n=>cur==='IDR'?idr(n):usd(n/RATE);
-const PAYS=['PayPal','QRIS','SeaBank','GoPay','ShopeePay'];
+const PAYS=['PayPal','QRIS','WISE'];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const CATS=['All','Daily Vote','Award Special','Accounts'];
 const DEF_APPS=[
@@ -439,12 +489,23 @@ function renderCats(){
   $$('#cats .pill').forEach(b=>b.onclick=()=>{cat=b.dataset.c;renderCats();renderGrid()});
 }
 function visiblePk(a){return a.pk.map((p,i)=>({p,i})).filter(x=>cat==='All'||CATS[x.p[2]+1]===cat)}
-const cardHtml=(a,pre,pks)=>`<article class="card p-4 flex flex-col gap-2">
+function pkMeta(a,i,val){
+  const p=a.pk[i],u=unitsOf(a,i);
+  if(u){const units=Math.max(0,Math.round(val)||0),v=Math.round(p[1]*RATE*units/u.q);return `✨ ${units.toLocaleString('en-US')} ${pl(u.lab)} = ${usd(v/RATE)} / ${idr(v)}`}
+  const q=Math.max(1,parseInt(val)||1);return `${q} × ${p[0]} = ${usd(p[1]*q)} / ${idr(p[1]*q*RATE)}`;
+}
+function pkHint(id,pre){const a=APPS.find(x=>x.id===id),i=+$('#'+pre+'pk-'+id).value;$('#'+pre+'h-'+id).textContent=pkMeta(a,i,parseFloat($('#'+pre+'q-'+id).value))}
+function pkSel(id,pre){const a=APPS.find(x=>x.id===id),i=+$('#'+pre+'pk-'+id).value,u=unitsOf(a,i);$('#'+pre+'q-'+id).value=u?u.q:1;$('#'+pre+'l-'+id).textContent=u?`Total ${pl(u.lab)} you want`:'Quantity (packs)';pkHint(id,pre)}
+const cardHtml=(a,pre,pks)=>{
+  const f=pks[0],fu=f?unitsOf(a,f.i):null;
+  return `<article class="card p-4 flex flex-col gap-2">
   <div class="flex items-center gap-2"><div class="w-11 h-11 shrink-0 rounded-2xl bg-[#FEF9C3] overflow-hidden flex items-center justify-center text-2xl">${ico(a.icon)}</div>
-  <div class="min-w-0"><h3 class="brand text-base leading-tight">${esc(a.name)}</h3>${EVENTS.some(e=>e.active&&e.appId===a.id)?'<span class="text-xs bg-[#FDE047] rounded-full px-2 py-0.5">🔥 Event</span>':''}</div></div>
+  <div class="min-w-0"><h3 class="brand text-base leading-tight">${esc(a.name)}</h3><div class="flex flex-wrap gap-1 mt-0.5">${EVENTS.some(e=>e.active&&e.appId===a.id)?'<span class="text-xs bg-[#FDE047] rounded-full px-2 py-0.5">🔥 Event</span>':''}${a.disc===false?'':'<span class="dpill !py-0 !px-1.5 text-[10px]">✨ tier discounts</span>'}</div></div></div>
   <p class="text-xs opacity-75 flex-1">${esc(a.desc)}</p>
-  <select id="${pre}pk-${a.id}" class="inp text-xs">${pks.map(x=>`<option value="${x.i}">${esc(x.p[0])} – ${usd(x.p[1])} (${idr(x.p[1]*RATE)})</option>`).join('')}</select>
-  <div class="flex gap-2"><input id="${pre}q-${a.id}" type="number" min="1" value="1" class="inp !w-16 text-center" aria-label="Quantity"><button class="btn flex-1 !px-2 text-sm" onclick="addCart('${a.id}','${pre}')"><i class="fa-solid fa-cart-plus mr-1"></i>Add to Cart</button></div></article>`;
+  <select id="${pre}pk-${a.id}" class="inp text-xs" onchange="pkSel('${a.id}','${pre}')" aria-label="Package rate">${pks.map(x=>`<option value="${x.i}">${esc(x.p[0])} – ${usd(x.p[1])} (${idr(x.p[1]*RATE)})</option>`).join('')}</select>
+  <div id="${pre}l-${a.id}" class="text-[10px] opacity-70 -mb-1">${fu?`Total ${esc(pl(fu.lab))} you want`:'Quantity (packs)'}</div>
+  <div class="flex gap-2"><input id="${pre}q-${a.id}" type="number" min="1" step="1" value="${fu?fu.q:1}" oninput="pkHint('${a.id}','${pre}')" class="inp !w-28 text-center" aria-label="Desired total units or quantity"><button class="btn flex-1 !px-2 text-sm" onclick="addCart('${a.id}','${pre}')"><i class="fa-solid fa-cart-plus mr-1"></i>Add to Cart</button></div>
+  <div id="${pre}h-${a.id}" class="text-[11px] font-semibold min-h-[1rem]">${f?pkMeta(a,f.i,fu?fu.q:1):''}</div></article>`};
 function renderGrid(){
   const q=$('#search').value.toLowerCase();
   const list=APPS.filter(a=>a.name.toLowerCase().includes(q)&&visiblePk(a).length);
@@ -458,22 +519,31 @@ $('#search').oninput=renderGrid;
 
 /* CART */
 function addCart(id,pre){
-  const a=APPS.find(x=>x.id===id), i=+$('#'+pre+'pk-'+id).value, q=Math.max(1,parseInt($('#'+pre+'q-'+id).value)||1);
+  const a=APPS.find(x=>x.id===id),i=+$('#'+pre+'pk-'+id).value,u=unitsOf(a,i),val=parseFloat($('#'+pre+'q-'+id).value);
+  let q;
+  if(u){const units=Math.round(val);if(!(units>=1))return toast('Please enter the total units you want');q=units/u.q}
+  else q=Math.max(1,parseInt(val)||1);
   const ex=cart.find(c=>c.id===id&&c.i===i);
   ex?ex.q+=q:cart.push({id,i,q});
-  sv('bb_cart',cart);renderCart();toast(`${a.name} – ${a.pk[i][0]} added to cart`);
+  sv('bb_cart',cart);renderCart();
+  toast(u?`${Math.round(u.q*q).toLocaleString('en-US')} ${pl(u.lab)} of ${a.name} added to cart`:`${a.name} – ${a.pk[i][0]} added to cart`);
 }
 const pl=l=>/[^aeiou]y$/i.test(l)?l.slice(0,-1)+'ies':l;
 function unitsOf(a,i){const n=a.pk[i][0];if(/account/i.test(n))return null;const m=n.match(/(\d[\d,]*)\s*([A-Za-z][A-Za-z]*(?:\s[A-Za-z]+)?)?/);if(!m)return null;return{q:parseInt(m[1].replace(/,/g,''),10),lab:(m[2]||'units').trim()}}
+const isU=(a,it)=>!!unitsOf(a,it.i);
+const unitCount=(a,it)=>{const u=unitsOf(a,it.i);return u?Math.round(u.q*it.q):0};
+const unitTxt=(a,it)=>{const u=unitsOf(a,it.i);return u?`${unitCount(a,it).toLocaleString('en-US')} ${pl(u.lab)}`:`x${it.q}`};
+const qtyCtl=(a,it,n)=>isU(a,it)?`<div class="flex items-center gap-1 mt-1"><input type="number" min="1" step="1" value="${unitCount(a,it)}" onchange="setU(${n},this.value)" class="inp !py-0.5 !px-2 text-xs !w-28" aria-label="Total units"><span class="text-xs font-semibold">${esc(pl(unitsOf(a,it.i).lab))}</span></div>`:`<div class="flex items-center gap-2 mt-1"><button class="w-6 h-6 rounded-full bg-[#FEF08A]" onclick="chg(${n},-1)" aria-label="Decrease">−</button><span class="text-sm w-6 text-center">${it.q}</span><button class="w-6 h-6 rounded-full bg-[#FEF08A]" onclick="chg(${n},1)" aria-label="Increase">+</button></div>`;
+function setU(n,v){const it=cart[n],a=APPS.find(x=>x.id===it.id),u=a&&unitsOf(a,it.i),units=Math.round(parseFloat(v));if(!u)return;if(!(units>=1)){toast('Enter at least 1 unit');renderCart();return}it.q=units/u.q;sv('bb_cart',cart);renderCart()}
 function rateOf(a){
   if(!a)return null;let upu=a.upu||0,unit=a.unit||'';
   if(!upu)for(let i=0;i<a.pk.length;i++){const u=unitsOf(a,i);if(u&&a.pk[i][1]>0){upu=u.q/a.pk[i][1];unit=unit||u.lab;break}}
   return upu?{upu,unit:unit||'units'}:null;
 }
 const itemU=(a,it)=>{const u=unitsOf(a,it.i);return u?` · <b>${(u.q*it.q).toLocaleString('en-US')} ${esc(pl(u.lab))}</b>`:''};
-function appTotals(){const m={};cart.forEach(it=>{const a=APPS.find(x=>x.id===it.id);if(!a||!a.pk[it.i])return;const g=m[a.id]=m[a.id]||{a,sub:0,units:{}};g.sub+=price(a,it.i)*it.q;const u=unitsOf(a,it.i);if(u){const k=u.lab.toLowerCase();g.units[k]=g.units[k]||{lab:u.lab,q:0};g.units[k].q+=u.q*it.q}});return Object.values(m)}
+function appTotals(){const m={};cart.forEach(it=>{const a=APPS.find(x=>x.id===it.id);if(!a||!a.pk[it.i])return;const g=m[a.id]=m[a.id]||{a,sub:0,units:{}};g.sub+=lineOf(it);const u=unitsOf(a,it.i);if(u){const k=u.lab.toLowerCase();g.units[k]=g.units[k]||{lab:u.lab,q:0};g.units[k].q+=u.q*it.q}});return Object.values(m)}
 const unitStr=g=>Object.values(g.units).map(u=>`${u.q.toLocaleString('en-US')} ${pl(u.lab)}`).join(' + ');
-const lineOf=it=>price(APPS.find(x=>x.id===it.id),it.i)*it.q;
+const lineOf=it=>Math.round(price(APPS.find(x=>x.id===it.id),it.i)*it.q);
 const okDisc=it=>{const a=APPS.find(x=>x.id===it.id);return a&&a.disc!==false};
 const TS=()=>[...TIERS].sort((a,b)=>a.min-b.min);
 function tierFor(u){let t=null;TS().forEach((x,i)=>{if(u>=x.min)t={...x,n:i+1}});return t}
@@ -489,25 +559,25 @@ function calc(){
 function renderCart(){
   const n0=cart.length;cart=cart.filter(c=>{const a=APPS.find(x=>x.id===c.id);return a&&a.pk[c.i]});if(cart.length!==n0)sv('bb_cart',cart);
   const c=calc();
-  $('#badge').textContent=c.qty;
+  $('#badge').textContent=cart.length;
   $$('#curTog button').forEach(b=>b.className='px-3 py-1 '+(b.dataset.cur===cur?'bg-[#FDE047]':'bg-white'));
   $('#cItems').innerHTML=cart.length?cart.map((it,n)=>{
     const a=APPS.find(x=>x.id===it.id),p=a.pk[it.i];
     return `<div class="card p-3 flex gap-3 items-center">
       <div class="w-9 h-9 shrink-0 rounded-xl overflow-hidden flex items-center justify-center text-2xl">${ico(a.icon)}</div>
-      <div class="flex-1 min-w-0"><div class="font-semibold text-sm">${esc(a.name)}${a.disc===false?' <span class="text-[10px] bg-[#FEF9C3] rounded px-1 font-normal">No discount</span>':''}</div><div class="text-xs opacity-70">${esc(p[0])} · ${fmt(price(a,it.i))}${itemU(a,it)}</div>
-        <div class="flex items-center gap-2 mt-1"><button class="w-6 h-6 rounded-full bg-[#FEF08A]" onclick="chg(${n},-1)" aria-label="Decrease">−</button><span class="text-sm w-6 text-center">${it.q}</span><button class="w-6 h-6 rounded-full bg-[#FEF08A]" onclick="chg(${n},1)" aria-label="Increase">+</button></div></div>
-      <div class="text-right"><div class="text-sm font-semibold">${fmt(price(a,it.i)*it.q)}</div><button class="text-xs text-red-600" onclick="rm(${n})" aria-label="Remove"><i class="fa-solid fa-trash"></i></button></div></div>`}).join('')
+      <div class="flex-1 min-w-0"><div class="font-semibold text-sm">${esc(a.name)}${a.disc===false?' <span class="dpill off !py-0 !px-1.5 text-[10px]">🚫 no discount</span>':''}</div><div class="text-xs opacity-70">${esc(p[0])} · ${fmt(price(a,it.i))}${itemU(a,it)}</div>
+        ${qtyCtl(a,it,n)}</div>
+      <div class="text-right"><div class="text-sm font-semibold">${fmt(lineOf(it))}</div><button class="text-xs text-red-600" onclick="rm(${n})" aria-label="Remove"><i class="fa-solid fa-trash"></i></button></div></div>`}).join('')
     :'<div class="text-center py-12 opacity-60"><div class="text-4xl mb-2">🛒</div>Your cart is empty. Pick a voting package to get started!</div>';
-  const byApp=cart.length?`<div class="bg-[#FEF9C3] rounded-xl p-2 space-y-1"><div class="font-semibold text-xs">Totals per app (before discount)</div>${appTotals().map(g=>`<div class="flex justify-between gap-2 text-xs"><span class="min-w-0">${esc(g.a.name)}${unitStr(g)?` · Total received: <b>${esc(unitStr(g))}</b>`:''}</span><span class="shrink-0">${fmt(g.sub)}</span></div>`).join('')}</div>`:'';
+  const byApp=cart.length?`<div class="bg-[#FEF9C3] rounded-xl p-2 space-y-1"><div class="font-semibold text-xs">Totals per app (before discount)</div>${appTotals().map(g=>`<div class="flex justify-between gap-2 text-xs"><span class="min-w-0">${esc(g.a.name)}${unitStr(g)?`<br><span class="text-sm">✨ Total Received: <b>${esc(unitStr(g))}</b></span>`:''}</span><span class="shrink-0">${fmt(g.sub)}</span></div>`).join('')}</div>`:'';
   const TSn=TS(),nxt=TSn.find(x=>c.elig/RATE<x.min),nI=nxt?TSn.indexOf(nxt)+1:0;
-  const hint=cart.length?`<div class="text-xs bg-[#FEF9C3] rounded-lg px-2 py-1">💡 ${c.elig===0?'Items in your cart are not eligible for the store discount.':nxt?`Add ${fmt((nxt.min-c.elig/RATE)*RATE)} more to unlock Tier ${nI} (${nxt.pct}% OFF)!`:`Top tier unlocked: ${c.pct}% OFF 🎉`}</div>`:'';
-  $('#cSum').innerHTML=`${hint}<div class="flex justify-between"><span>Subtotal (${c.qty} pack${c.qty===1?'':'s'})</span><span>${fmt(c.sub)}</span></div>
-   <div class="flex justify-between text-green-700"><span>Discount${c.tier?` (Tier ${c.tier} · ${c.pct}%)`:' (no tier yet)'}</span><span>−${fmt(c.disc)}</span></div>${c.v?`<div class="flex justify-between"><span>🎟️ Loyalty voucher</span><span>−${fmt(c.v)}</span></div>`:''}
+  const hint=cart.length?`<div class="dpill !rounded-xl !whitespace-normal">✨ ${c.elig===0?'Items in your cart are not eligible for the store discount.':nxt?`Add ${fmt((nxt.min-c.elig/RATE)*RATE)} more to unlock Tier ${nI}: ${nxt.pct}% OFF ✨`:`Top tier unlocked: ${c.pct}% OFF ✨`}</div>`:'';
+  $('#cSum').innerHTML=`${cart.length?tierBar(c.elig/RATE)+tierChips(c.elig/RATE):''}${hint}<div class="flex justify-between"><span>Subtotal (${cart.length} item${cart.length===1?'':'s'})</span><span>${fmt(c.sub)}</span></div>
+   <div class="flex justify-between text-green-700"><span class="flex items-center gap-1">Discount ${c.tier?`<span class="dpill !py-0 !px-2">✨ Tier ${c.tier} · ${c.pct}% OFF</span>`:'<span class="dpill off !py-0 !px-2">no tier yet</span>'}</span><span>−${fmt(c.disc)}</span></div>${c.v?`<div class="flex justify-between"><span>🎟️ Loyalty voucher</span><span>−${fmt(c.v)}</span></div>`:''}
    <div class="flex justify-between font-bold text-sm border-t pt-1"><span>Final Total</span><span>${fmt(c.total)}</span></div>
    <div class="text-xs opacity-60 text-right">≈ ${cur==='IDR'?usd(c.total/RATE):idr(c.total)}</div>`;
   if(cart.length)$('#cItems').insertAdjacentHTML('beforeend',byApp);
-  $('#cVouch').innerHTML=vAvail()?`<label class="flex items-center gap-2 text-xs bg-[#FEF9C3] border border-black rounded-lg px-2 py-1"><input type="checkbox" ${useV?'checked':''} onchange="useV=this.checked;renderCart()"> 🎟️ Use loyalty voucher (${vAvail()} available): −${fmt(LOYV.idr)}</label>`:'';
+  $('#cVouch').innerHTML=vAvail()?`<label class="dpill !rounded-xl !whitespace-normal"><input type="checkbox" ${useV?'checked':''} onchange="useV=this.checked;renderCart()"> 🎟️ Use loyalty voucher (${vAvail()} available): −${fmt(LOYV.idr)}</label>`:'';
 }
 const chg=(n,d)=>{cart[n].q=Math.max(1,cart[n].q+d);sv('bb_cart',cart);renderCart()};
 const rm=n=>{cart.splice(n,1);sv('bb_cart',cart);renderCart()};
@@ -523,10 +593,10 @@ $('#checkout').onclick=()=>{
   const c=calc(), note=$('#cNote').value.trim(), pay=$('#cPay').value;
   const oid='o'+Date.now(),vr=(c.sub-c.disc)>0?c.total/(c.sub-c.disc):1;
   const totals=appTotals().map(g=>`- ${g.a.name}: ${unitStr(g)||'-'} (${fmt(g.sub)})`).join('\n');
-  const lines=cart.map((it,n)=>{const a=APPS.find(x=>x.id===it.id);return `${n+1}. ${a.name} - ${a.pk[it.i][0]} x${it.q} = ${fmt(price(a,it.i)*it.q)}`}).join('\n');
+  const lines=cart.map((it,n)=>{const a=APPS.find(x=>x.id===it.id);return `${n+1}. ${a.name} - ${a.pk[it.i][0]} (${unitTxt(a,it)}) = ${fmt(lineOf(it))}`}).join('\n');
   const msg=`Hi @bingbingvote! I'd like to place an order 💛\n\nTwitter: ${u}\n\n${lines}\n\nTOTAL PER APP:\n${totals}\n\nSubtotal: ${fmt(c.sub)}\nDiscount (Tier ${c.tier||0}, ${c.pct}%): -${fmt(c.disc)}${c.v?'\nLoyalty voucher: -'+fmt(c.v):''}\nFINAL TOTAL: ${fmt(c.total)}\nPayment Method: ${pay}\n\nNotes: ${note||'-'}\n\nPlease send the payment details. Thank you!`;
   cart.forEach(it=>{const a=APPS.find(x=>x.id===it.id);
-    sales.unshift({id:Date.now()+Math.random(),date:today(),buyer:u,app:a.name,pkg:a.pk[it.i][0],qty:it.q,total:price(a,it.i)*it.q*(a.disc===false?1:1-c.pct/100)*vr,status:'Pending',pay,oid})});
+    sales.unshift({id:Date.now()+Math.random(),date:today(),buyer:u,app:a.name,pkg:isU(a,it)?unitTxt(a,it):a.pk[it.i][0],qty:isU(a,it)?undefined:it.q,total:lineOf(it)*(a.disc===false?1:1-c.pct/100)*vr,status:'Pending',pay,oid})});
   sv('bb_sales',sales);
   if(c.v>0){useVoucher(u);useV=false}
   const url=`${DM}&text=${encodeURIComponent(msg)}`;
@@ -647,15 +717,16 @@ function rcSum(){
 $('#rcRows').oninput=rcSum;$('#rcDisc').oninput=rcSum;$('#rcDiscCur').onchange=rcSum;$('#rcCur').onchange=rcSum;addRc();
 function showReceipt(r){
   const m=n=>money(n,r.cur),hr='<hr style="border:0;border-top:2px dashed #FDE047;margin:.8rem 0">',row=(a,b,st)=>`<div style="display:flex;justify-content:space-between;gap:.5rem;${st||''}"><span>${a}</span><b>${b}</b></div>`;
-  const items=r.items.map(i=>i.app?`<div style="display:flex;justify-content:space-between;gap:.5rem;align-items:flex-start"><div><div style="font-weight:700">${esc(i.app)}</div><div style="font-size:.75rem;opacity:.75">${esc(i.u)}</div></div><b>${m(i.amt)}</b></div>`:row(i.q?`${i.q} × ${esc(i.n)}`:esc(i.n),m(i.amt!==undefined?i.amt:i.q*i.p))).join('');
+  const items=r.items.map(i=>i.app?`<div style="display:flex;justify-content:space-between;gap:.5rem;align-items:flex-start;border:2px solid #FBCFE8;border-radius:.8rem;padding:.4rem .6rem;background:#FEF9C3"><div><div style="font-weight:700">${esc(i.app)}</div><div style="font-size:.75rem;opacity:.75">${esc(i.u)}</div></div><b>${m(i.amt)}</b></div>`:row(i.q?`${i.q} × ${esc(i.n)}`:esc(i.n),m(i.amt!==undefined?i.amt:i.q*i.p))).join('');
   const dnote=r.discIn&&r.discIn.cur!==r.cur?` <span style="font-weight:400;opacity:.7">(entered as ${money(r.discIn.v,r.discIn.cur)})</span>`:'';
-  $('#rcCard').innerHTML=`<div id="rcInner" style="background:#FFFBEB;border:4px dashed #FDE047;border-radius:1.5rem;padding:1.5rem;max-width:24rem;margin:0 auto;color:#18181B;font-family:Inter,sans-serif">
-   <div style="text-align:center"><img src="${logoSrc()}" alt="@bingbingvote logo" style="width:3.6rem;height:3.6rem;border-radius:9999px;border:3px solid #000;object-fit:cover;margin:0 auto .3rem;display:block"><div style="font-family:Comfortaa,sans-serif;font-weight:700;font-size:1.3rem">@bingbingvote</div><div style="font-size:.75rem;opacity:.7">K-Pop Voting Specialist ✨</div></div>${hr}
-   <div style="font-size:.75rem;display:grid;gap:.2rem">${row('Receipt no.',esc(r.no))}${row('Date',esc(r.date))}${row('Customer',esc(r.buyer))}${row('Payment',esc(r.pay||'-'))}</div>${hr}
+  $('#rcCard').innerHTML=`<div id="rcInner" style="background:#FFFBEB;border:4px dashed #FDE047;border-radius:1.5rem;padding:1.5rem;max-width:24rem;margin:0 auto;color:#78350F;font-family:Inter,sans-serif">
+   <div style="text-align:center"><img src="${logoSrc()}" alt="@bingbingvote logo" style="width:3.6rem;height:3.6rem;border-radius:9999px;border:3px solid #F59E0B;object-fit:cover;margin:0 auto .3rem;display:block"><div style="font-family:Comfortaa,sans-serif;font-weight:700;font-size:1.3rem">@bingbingvote</div><div style="font-size:.75rem;opacity:.7">K-Pop Voting Specialist ✨</div></div>${hr}
+   <div style="font-size:.75rem;display:grid;gap:.2rem">${row('Receipt no.',esc(r.no))}${row('Date',esc(r.date))}${row('Customer',esc(r.buyer))}${row('Payment',esc(r.pay||'-'))}${r.sched?row('🗓️ Voting Schedule',esc(r.sched)):''}</div>${hr}
    <div style="display:flex;justify-content:space-between;font-size:.62rem;letter-spacing:.06em;opacity:.6;text-transform:uppercase;margin-bottom:.3rem"><span>App · Vote units</span><span>Price</span></div><div style="font-size:.85rem;display:grid;gap:.45rem">${items}</div>${hr}
    ${r.disc>0?`<div style="font-size:.85rem;display:grid;gap:.3rem;margin-bottom:.4rem">${row('Subtotal',m(r.sub))}${row('Special Deal'+dnote,'-'+m(r.disc),'color:#15803d')}</div>`:''}
    <div style="font-size:1.1rem">${row('TOTAL',m(r.total))}</div>
    ${r.cur==='USD'?`<div style="text-align:right;font-size:.7rem;opacity:.7">≈ ${idr(r.total*RATE)} (rate: $1 = IDR ${RATE.toLocaleString('en-US')})</div>`:''}
+   ${r.payDet?`<div style="margin-top:.8rem;padding:.55rem .7rem;border:2px dashed #F59E0B;border-radius:.9rem;font-size:.8rem"><div style="opacity:.65;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em">Pay to · ${esc(r.pay)}</div><div style="font-weight:700;word-break:break-all">${esc(r.payDet)}</div></div>`:''}
    ${r.qrImg?`<div style="text-align:center;margin-top:.9rem"><img src="${r.qrImg}" alt="QRIS code" style="width:11rem;max-width:70%;margin:0 auto;display:block"><div style="font-size:.7rem;opacity:.7;margin-top:.2rem">Scan to pay with QRIS</div></div>`:''}
    ${r.note?`<p style="font-size:.8rem;margin-top:.6rem">📝 ${esc(r.note)}</p>`:''}
    <div style="text-align:center;margin-top:.9rem;font-size:.85rem">Thank you for your order! 💛🌸</div></div>`;
@@ -667,6 +738,7 @@ function dlReceipt(){
 }
 function renderRcList(){
   $('#rcList').innerHTML=RECEIPTS.length?RECEIPTS.slice(0,8).map((r,i)=>`<div class="border-2 border-black rounded-xl p-2 flex items-center gap-2"><div class="flex-1 min-w-0"><div class="font-semibold text-sm truncate">${esc(r.no)} · ${esc(r.buyer)}</div><div class="text-xs opacity-60">${money(r.total,r.cur)} · ${esc(r.date)}</div></div>
+    <button class="px-2" onclick="editReceipt(${i})" aria-label="Edit receipt"><i class="fa-solid fa-pen"></i></button>
     <button class="px-2" onclick="showReceipt(RECEIPTS[${i}])" aria-label="View receipt"><i class="fa-solid fa-eye"></i></button>
     <button class="px-2 text-red-600" onclick="delRc(${i})" aria-label="Delete receipt"><i class="fa-solid fa-trash"></i></button></div>`).join(''):'<p class="text-sm opacity-60">No receipts yet.</p>';
 }
@@ -676,10 +748,11 @@ $('#rcForm').onsubmit=e=>{
   if(!c.items.length)return toast('Add at least one item with units or a price');
   if(c.items.some(i=>i.bad))return toast('One app has no unit rate. Set it in Catalog & Reorder first.');
   let b=$('#rcBuyer').value.trim();if(!b.startsWith('@'))b='@'+b;
-  const r={no:'BB-'+today().replace(/-/g,'')+'-'+String(Date.now()%10000).padStart(4,'0'),date:new Date().toLocaleString([],{dateStyle:'medium',timeStyle:'short'}),buyer:b,items:c.items.map(i=>({n:i.n,app:i.app,u:i.u,amt:i.amt})),sub:c.sub,disc:c.ded,discIn:c.ded>0?{v:c.dv,cur:c.dc}:null,total:c.total,cur:c.cur,pay:$('#rcPay').value,note:$('#rcNote').value.trim(),qrImg:$('#rcQr').checked?qrPng:''};
-  RECEIPTS.unshift(r);RECEIPTS=RECEIPTS.slice(0,30);sv('bb_receipts',RECEIPTS);
-  if($('#rcLog').checked){sales.unshift({id:Date.now()+Math.random(),date:today(),buyer:b,app:'Manual order',pkg:r.items.map(i=>i.n).join(', '),total:c.cur==='USD'?c.total*RATE:c.total,cur:c.cur,amt:c.total,pay:r.pay,status:'Completed'});sv('bb_sales',sales);renderAdmin();awardStamp(sales[0])}
-  showReceipt(r);renderRcList();toast($('#rcQr').checked&&!qrPng?'Receipt generated (no QRIS uploaded yet)':'Receipt generated');
+  const r={no:'BB-'+today().replace(/-/g,'')+'-'+String(Date.now()%10000).padStart(4,'0'),date:new Date().toLocaleString([],{dateStyle:'medium',timeStyle:'short'}),buyer:b,items:c.items.map(i=>({n:i.n,app:i.app,u:i.u,amt:i.amt})),sub:c.sub,disc:c.ded,discIn:c.ded>0?{v:c.dv,cur:c.dc}:null,total:c.total,cur:c.cur,pay:$('#rcPay').value,payDet:$('#rcPay').value==='QRIS'?'':$('#rcPayDet').value.trim(),note:$('#rcNote').value.trim(),qrImg:$('#rcPay').value==='QRIS'?qrPng:'',...schedObj('rcSched','rcDate')};
+  if(rcEdit!==null&&RECEIPTS[rcEdit]){r.no=RECEIPTS[rcEdit].no;RECEIPTS[rcEdit]=r}else{RECEIPTS.unshift(r);RECEIPTS=RECEIPTS.slice(0,30)}
+  rcEdit=null;sv('bb_receipts',RECEIPTS);
+  if($('#rcLog').checked){sales.unshift({id:Date.now()+Math.random(),date:today(),buyer:b,app:'Manual order',pkg:r.items.map(i=>i.n).join(', '),total:c.cur==='USD'?c.total*RATE:c.total,cur:c.cur,amt:c.total,pay:r.pay,status:'Completed',schedMode:r.schedMode,schedDate:r.schedDate,sched:r.sched});sv('bb_sales',sales);renderAdmin();awardStamp(sales[0])}
+  showReceipt(r);renderRcList();toast($('#rcPay').value==='QRIS'&&!qrPng?'Receipt generated (no QRIS uploaded yet)':'Receipt generated');
 };
 
 /* ADMIN */
@@ -708,7 +781,7 @@ function renderAdmin(){
   $('#sBody').innerHTML=view.length?view.slice(0,sLim).map(s=>`<tr class="border-b border-black">
     <td class="p-2">${s.date}</td><td>${esc(s.buyer)}</td><td>${esc(s.app)}</td><td>${esc(s.pkg)}</td><td>${idr(s.total)}${s.cur==='USD'?`<div class="text-[10px] opacity-60">${usd(s.amt)}</div>`:''}</td><td>${esc(s.pay||'-')}</td>
     <td><button onclick="cycle('${s.id}')" class="px-2 py-0.5 rounded-full text-xs font-semibold ${badge(s.status)}">${s.status}</button></td>
-    <td><button class="text-red-600" onclick="del('${s.id}')" aria-label="Delete order"><i class="fa-solid fa-trash"></i></button></td></tr>`).join('')
+    <td class="whitespace-nowrap"><button class="px-1" onclick="editOrder('${s.id}')" aria-label="Edit order"><i class="fa-solid fa-pen"></i></button><button class="text-red-600" onclick="del('${s.id}')" aria-label="Delete order"><i class="fa-solid fa-trash"></i></button></td></tr>`).join('')
     :'<tr><td colspan="9" class="text-center p-6 opacity-60">No orders yet. Log one above or wait for your first DM order.</td></tr>';
 }
 const cycle=id=>{const s=sales.find(x=>String(x.id)===id);s.status=STAT[(STAT.indexOf(s.status)+1)%3];sv('bb_sales',sales);renderAdmin();if(s.status==='Completed')awardStamp(s)};
@@ -773,6 +846,9 @@ function saveEv(){
   const o={id:evId||'ev'+Date.now(),title,text:$('#eText').value.trim(),icon:evImg||$('#eEIcon').value.trim()||'🎉',appId:$('#eApp').value,active:$('#eActive').checked};
   if(evId)EVENTS[EVENTS.findIndex(x=>x.id===evId)]=o;else EVENTS.unshift(o);
   sv('bb_events',EVENTS);closeM('evM');refreshAll();toast('Event saved');
+
+  // SIMPAN OTOMATIS KE FIREBASE CLOUD
+  simpanDataKeCloud({ apps: APPS, events: EVENTS, home: HOME });
 }
 const togEv=id=>{const e=EVENTS.find(x=>x.id===id);e.active=!e.active;sv('bb_events',EVENTS);refreshAll()};
 const delEv=id=>{if(confirm('Delete this event?')){EVENTS=EVENTS.filter(x=>x.id!==id);sv('bb_events',EVENTS);refreshAll()}};
@@ -806,6 +882,9 @@ function saveApp(){
   let cut=false;if(edId){const old=APPS.find(x=>x.id===edId);if(JSON.stringify(old.pk)!==JSON.stringify(pk)&&cart.some(c=>c.id===edId)){cart=cart.filter(c=>c.id!==edId);sv('bb_cart',cart);cut=true}}
   if(edId)APPS[APPS.findIndex(x=>x.id===edId)]=o;else APPS.push(o);
   sv('bb_apps',APPS);closeM('appM');refreshAll();toast(cut?'App saved. Its cart items were cleared because the packages changed.':'App saved');
+
+  // SIMPAN OTOMATIS KE FIREBASE CLOUD
+  simpanDataKeCloud({ apps: APPS, events: EVENTS, home: HOME });
 }
 const delApp=id=>{if(confirm('Delete this app and all its packages?')){APPS=APPS.filter(x=>x.id!==id);sv('bb_apps',APPS);refreshAll()}};
 
@@ -815,7 +894,6 @@ function refreshAll(){
   renderGrid();renderCart();renderEvents();renderHome();renderNotes();renderPolls();renderTesti();renderTick();$('#appNames').innerHTML=APPS.map(a=>`<option value="${esc(a.name)}">`).join('');
   if(admin){renderCatMgr();renderEvMgr();renderPollMgr()}
 }
-
 
 $('#cPay').innerHTML=PAYS.map(p=>`<option>${p}</option>`).join('');$('#rcPay').innerHTML=$('#cPay').innerHTML;$('#mPay').innerHTML='<option value="">Not specified</option>'+$('#cPay').innerHTML;
 $$('#curTog button').forEach(b=>b.onclick=()=>{cur=b.dataset.cur;sv('bb_cur',cur);renderCart()});
@@ -852,6 +930,9 @@ $('#hForm').onsubmit=e=>{
   e.preventDefault();
   HOME={banner:hbImg||$('#hBanner').value.trim(),avatar:haImg||$('#hAvImg').value.trim(),title:$('#hTitle').value.trim()||'Welcome!',text:$('#hText').value.trim(),followers:$('#hFol').value.trim()||'0',bio:$('#hBio').value.trim(),hours:$('#hHours').value.trim(),links:$('#hLinks').value.trim()};
   sv('bb_home',HOME);renderHome();toast('Home content saved');
+
+  // SIMPAN OTOMATIS KE FIREBASE CLOUD
+  simpanDataKeCloud({ apps: APPS, events: EVENTS, home: HOME });
 };
 function togFeat(id){
   const a=APPS.find(x=>x.id===id);
@@ -888,11 +969,11 @@ $('#bgmName').textContent=tracks()[0].t;
 
 /* ADMIN TABS, BGM LIST, DISCOUNT RULES */
 let sLim=10,fhDone=false;
-function aTab(k){['stats','home','loy','tm','rc','wm','cat','log'].forEach(x=>$('#at-'+x).classList.toggle('hidden',x!==k));$$('#aTabs .pill').forEach(b=>b.classList.toggle('on',b.dataset.a===k));if(k==='rc')rcOpts()}
+function aTab(k){['stats','home','loy','tm','rc','cat','log','pb'].forEach(x=>$('#at-'+x).classList.toggle('hidden',x!==k));$$('#aTabs .pill').forEach(b=>b.classList.toggle('on',b.dataset.a===k));if(k==='rc')rcOpts()}
 function renderNotes(){
-  const t=TS().map(x=>`${usd(x.min)}+ → ${x.pct}% off`).join(' · ');
-  $('#gDisc').innerHTML=`Discount tiers on eligible apps: <b>${t}</b>. Applied automatically in your cart.`;
-  $('#shopNote').textContent=`Tiered discounts on eligible apps: ${t}. Rate: $1 = IDR ${RATE.toLocaleString('en-US')}. Checkout happens in a Twitter DM with @bingbingvote.`;
+  const pills=TS().map(x=>`<span class="dpill">✨ ${x.pct}% OFF · ${usd(x.min)}+</span>`).join('');
+  $('#gDisc').innerHTML=`Tiered discounts on eligible apps, applied automatically:<div class="flex flex-wrap gap-1.5 mt-1">${pills}</div>`;
+  $('#shopNote').innerHTML=`<div class="flex flex-wrap items-center gap-2"><span class="text-sm font-semibold">Bundle &amp; save 💛</span>${pills}</div><p class="text-xs opacity-75 mt-1">Rate: $1 = IDR ${RATE.toLocaleString('en-US')}. Enter the total units you want and the price is calculated for you. Checkout happens in a Twitter DM with @bingbingvote.</p>`;
 }
 const fillSet=()=>TS().forEach((t,i)=>{$('#sMin'+i).value=t.min;$('#sPct'+i).value=t.pct});
 $('#setForm').onsubmit=e=>{
@@ -909,7 +990,6 @@ $('#bForm').onsubmit=e=>{
   sv('bb_bgml',BGM);bi=0;fails=0;if(bgm)play();else $('#bgmName').textContent=tracks()[0].t;
   toast(BGM.length?`Playlist saved (${BGM.length} track${BGM.length>1?'s':''})`:'Playlist cleared. Built-in tunes will play.');
 };
-
 
 /* REORDER, VOTING EVENTS, TICKER, STATUS CHECKER, ACCOUNT */
 let dragI=null;
@@ -992,7 +1072,6 @@ $('#authForm').onsubmit=e=>{
   AUTH={id,pw};sv('bb_auth',AUTH);e.target.reset();toast('Login details updated');
 };
 
-
 /* PUBLIC REVIEWS, ZOOM, CART EXTRAS */
 function renderStars(){
   $('#stars').innerHTML=[1,2,3,4,5].map(i=>`<span data-r="${i}" role="radio" aria-label="${i} star${i>1?'s':''}">${i<=rating?'★':'☆'}</span>`).join('');
@@ -1016,8 +1095,8 @@ $('#clearCart').onclick=()=>{if(!cart.length)return toast('Your cart is already 
 ['cUser','mBuyer','rcBuyer','tName','tmName','oHandle'].forEach(id=>{const el=$('#'+id);if(el)el.addEventListener('input',()=>{let v=el.value.replace(/\s/g,'');if(v&&v[0]!=='@')v='@'+v;if(v!==el.value)el.value=v})});
 renderStars();
 
-/* LOGO, LOYALTY, WATERMARKER, DM TEMPLATES */
-const DEF_LOGO='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#FDE047" stroke="#000" stroke-width="4"/><ellipse cx="34" cy="28" rx="11" ry="15" fill="#fff" stroke="#000" stroke-width="3" transform="rotate(-25 34 28)"/><ellipse cx="66" cy="28" rx="11" ry="15" fill="#fff" stroke="#000" stroke-width="3" transform="rotate(25 66 28)"/><ellipse cx="50" cy="58" rx="27" ry="23" fill="#FEF08A" stroke="#000" stroke-width="4"/><path d="M30 52q20 9 40 0M28 66q22 10 44 0" stroke="#000" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="41" cy="48" r="3.5" fill="#000"/><circle cx="59" cy="48" r="3.5" fill="#000"/></svg>');
+/* LOGO, LOYALTY, DM TEMPLATES */
+const DEF_LOGO='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#FDE047" stroke="#F59E0B" stroke-width="4"/><ellipse cx="34" cy="28" rx="11" ry="15" fill="#fff" stroke="#F59E0B" stroke-width="3" transform="rotate(-25 34 28)"/><ellipse cx="66" cy="28" rx="11" ry="15" fill="#fff" stroke="#F59E0B" stroke-width="3" transform="rotate(25 66 28)"/><ellipse cx="50" cy="58" rx="27" ry="23" fill="#FEF08A" stroke="#F59E0B" stroke-width="4"/><path d="M30 52q20 9 40 0M28 66q22 10 44 0" stroke="#F59E0B" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="41" cy="48" r="3.5" fill="#F59E0B"/><circle cx="59" cy="48" r="3.5" fill="#F59E0B"/></svg>');
 const logoSrc=()=>/^(data:|https?:)/.test(HOME.avatar||'')?HOME.avatar:DEF_LOGO;
 
 const STAMPS=10;
@@ -1036,7 +1115,7 @@ function loyMsg(h,done){
   return done?`Thanks for ordering at @bingbingvote! 🐝 Your stamp card is complete: [${STAMPS}/${STAMPS}] 🎉 You unlocked a loyalty voucher worth ${vLabel()}. Use it at checkout on your next order!${v} New card: [${L.stamps}/${STAMPS}] 💛`
     :`Thanks for ordering at @bingbingvote! 🐝 Your current stamps: [${L.stamps}/${STAMPS}] ${stampBar(L.stamps)}${v} Only ${STAMPS-L.stamps} more to unlock a ${vLabel()} voucher! 💛`;
 }
-function openLoyDm(h,done){ldH=hKey(h);$('#ldTo').textContent=ldH;$('#ldText').value=loyMsg(ldH,done);openM('loyDmM')}
+function openLoyDm(h,done){ldH=hKey(h);$('#ldTo').textContent=ldH;$('#ldText').value=loyMsg(ldH,done);renderLdCard(ldH);openM('loyDmM')}
 $('#ldSend').onclick=()=>{
   const m=$('#ldText').value,url=`https://twitter.com/messages/compose?recipient_id=${ldH}&text=${encodeURIComponent(m)}`;
   try{navigator.clipboard.writeText(m)}catch(e){}
@@ -1044,12 +1123,28 @@ $('#ldSend').onclick=()=>{
 };
 $('#ldCopy').onclick=()=>navigator.clipboard.writeText($('#ldText').value).then(()=>toast('Message copied'),()=>toast('Copy failed. Select the text and copy it manually.'));
 function awardStamp(sale){
-  const h=hKey(sale.buyer);if(!h||sale.status!=='Completed')return;
-  const oid=String(sale.oid||sale.id),L=lget(h);
-  if((L.oids||[]).includes(oid))return;
-  L.oids=[...(L.oids||[]).slice(-199),oid];L.orders=(L.orders||0)+1;
-  const before=L.vouchers;bump(L,1);lset(h,L);renderLoyMgr();
-  toast(`Stamp added for ${h}: ${L.stamps}/${STAMPS}`);openLoyDm(h,L.vouchers>before);
+  const h=hKey(sale.buyer);
+  if(!h || sale.status !== 'Completed') return;
+
+  // Syarat minimal belanja IDR 50.000 atau $3 USD
+  const MIN_SPEND_IDR = 50000;
+  if((sale.total || 0) < MIN_SPEND_IDR){
+    toast(`Order Completed, tapi belum mencapai min. Rp50.000 untuk dapat stamp loyalty.`);
+    return;
+  }
+
+  const oid=String(sale.oid||sale.id), L=lget(h);
+  if((L.oids||[]).includes(oid)) return;
+
+  L.oids=[...(L.oids||[]).slice(-199),oid];
+  L.orders=(L.orders||0)+1;
+  const before=L.vouchers;
+  bump(L,1);
+  lset(h,L);
+  renderLoyMgr();
+
+  toast(`Stamp added for ${h}: ${L.stamps}/${STAMPS}`);
+  openLoyDm(h, L.vouchers > before);
 }
 function openLoy(){closeMenu();$('#loyOut').innerHTML='';$('#loyIn').value='';$('#loyVal').textContent=vLabel();openM('loyM');setTimeout(()=>$('#loyIn').focus(),50)}
 function loyCheck(){
@@ -1077,41 +1172,260 @@ $('#lyForm').onsubmit=e=>{
 $('#lyVForm').onsubmit=e=>{e.preventDefault();LOYV={usd:parseFloat($('#lyVu').value)||0,idr:Math.max(0,parseInt($('#lyVi').value)||0)};sv('bb_loyv',LOYV);renderCart();toast('Voucher saved')};
 $('#cUser').addEventListener('input',()=>{const st=$('#cItems').scrollTop;renderCart();$('#cItems').scrollTop=st});
 
-function goWm(){closeMenu();if(admin){go('admin');aTab('wm')}else{pendTab='wm';go('admin');openPin()}}
-let wmBase=null,wmLg=null;
-function wmLoad(src){return new Promise(res=>{const im=new Image();if(/^https?:/.test(src))im.crossOrigin='anonymous';im.onload=()=>res(im);im.onerror=()=>{const f=new Image();f.onload=()=>res(f);f.src=DEF_LOGO};im.src=src})}
-function wmDraw(){
-  if(!wmBase)return;if(!wmLg){wmLoad(logoSrc()).then(i=>{wmLg=i;wmDraw()});return}
-  const cv=$('#wmCv'),W=Math.min(wmBase.width,1600),H=Math.round(wmBase.height*W/wmBase.width),x=cv.getContext('2d');
-  cv.width=W;cv.height=H;x.drawImage(wmBase,0,0,W,H);
-  const sc=+$('#wmScale').value,op=+$('#wmOp').value,pos=$('#wmPos').value,txt=$('#wmTxt').checked;
-  const lw=W*sc/100,lh=lw*wmLg.height/wmLg.width,fs=Math.max(10,lw*.2),m=W*.03;
-  $('#wmSv').textContent=sc;$('#wmOv').textContent=op;
-  const put=(px,py)=>{x.drawImage(wmLg,px,py,lw,lh);if(txt){x.font=`700 ${fs}px Inter,sans-serif`;x.textAlign='center';x.lineWidth=fs*.18;x.strokeStyle='#fff';x.fillStyle='#000';x.strokeText('@bingbingvote',px+lw/2,py+lh+fs);x.fillText('@bingbingvote',px+lw/2,py+lh+fs)}};
-  x.globalAlpha=op/100;
-  if(pos==='tile'){x.save();x.rotate(-Math.PI/7);const st=Math.max(lw,40)*2.2;for(let yy=-H;yy<H*2;yy+=st*.9)for(let xx=-W;xx<W*2;xx+=st)put(xx,yy);x.restore()}
-  else{const th=lh+(txt?fs*1.4:0),col={l:m,c:(W-lw)/2,r:W-lw-m}[pos[pos.length-1]==='c'&&pos.length===1?'c':pos[1]||'c'],row={t:m,m:(H-th)/2,b:H-th-m}[pos.length===1?'m':pos[0]];put(col,row)}
-  x.globalAlpha=1;cv.classList.remove('hidden');$('#wmEmpty').classList.add('hidden');$('#wmDl').classList.remove('hidden');
-}
-$('#wmFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const u=URL.createObjectURL(f),im=new Image();im.onload=()=>{wmBase=im;wmDraw()};im.onerror=()=>toast('That file could not be read as an image');im.src=u};
-$('#wmLogoF').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>wmLoad(rd.result).then(i=>{wmLg=i;wmDraw()});rd.readAsDataURL(f)};
-['wmScale','wmOp','wmPos','wmTxt'].forEach(id=>$('#'+id).addEventListener('input',wmDraw));
-$('#wmDl').onclick=()=>{try{$('#wmCv').toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='giveaway-proof-watermarked.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)},'image/png')}catch(e){toast('Could not export. If your logo is an external link, upload the logo file instead.')}};
-
 const TPL_DEF=[
+ {k:'Loyalty Stamp (Min. 50K)',t:'Hi {h}! 🐝 Karena pesananmu sudah memenuhi minimal belanja Rp50.000 / $3 USD, kamu mendapatkan 1 stamp loyalty dari @bingbingvote! Terima kasih banyak yaa 💛✨'},
  {k:'Payment Confirmation',t:'Hi {h}! 💛 We have received your payment, thank you! Your order is now queued and we will start processing it shortly. 🐝'},
  {k:'Vote Processing',t:'Hi {h}! ✨ Your votes are being processed right now. We will update you as soon as they are done. Thank you for your patience! 🐝'},
  {k:'Order Completion',t:'Hi {h}! 🎉 Your order is complete! Please check your app and tell us if anything looks off. Thank you for ordering at @bingbingvote! 💛'},
  {k:'Payment Reminder',t:'Hi {h}! 🐝 Just a friendly reminder that your order is waiting for payment. Send the proof here once you have paid and we will get started right away. 💛'},
- {k:'Review Request',t:'Hi {h}! 💛 Thank you for your order! If you enjoyed our service, we would love a short review. It really helps us a lot. ✨'}];
-let TPL=ld('bb_tpl',TPL_DEF);
+ {k:'Review Request',t:'Hi {h}! 💛 Thank you for your order! If you enjoyed our service, we would love a short review. It really helps us a lot. ✨'}
+];
+  let TPL=ld('bb_tpl',TPL_DEF);
 function renderTpl(){
   $('#tplList').innerHTML=TPL.map((t,i)=>`<div class="border-2 border-black rounded-xl p-2 space-y-1"><div class="flex justify-between items-center"><b class="text-sm">${esc(t.k)}</b><button class="btn !py-1 text-xs" onclick="copyTpl(${i})"><i class="fa-regular fa-copy mr-1"></i>Copy</button></div><textarea class="inp text-xs" rows="2" aria-label="${esc(t.k)} text" onchange="saveTpl(${i},this.value)">${esc(t.t)}</textarea></div>`).join('');
 }
 const saveTpl=(i,v)=>{TPL[i].t=v;sv('bb_tpl',TPL);toast('Template saved')};
 const copyTpl=i=>{const m=TPL[i].t.replace(/\{h\}/g,hKey($('#tplH').value)||'there');navigator.clipboard.writeText(m).then(()=>toast('Copied: '+TPL[i].k),()=>toast('Copy failed. Select the text and copy it manually.'))};
 ['loyIn','lyH','tplH'].forEach(id=>{const el=$('#'+id);if(el)el.addEventListener('input',()=>{let v=el.value.replace(/\s/g,'');if(v&&v[0]!=='@')v='@'+v;if(v!==el.value)el.value=v})});
+
+/* DISCOUNT BADGES, PAYMENT DETAILS, EDIT ORDER */
+function tierBar(eu){
+  const T=TS(),mx=T.length?T[T.length-1].min:100,w=Math.min(100,eu/mx*100);
+  return `<div class="relative h-3 rounded-full border-2 border-[#FBCFE8] bg-white overflow-hidden" role="progressbar" aria-label="Discount tier progress" aria-valuenow="${Math.round(w)}" aria-valuemin="0" aria-valuemax="100"><div class="h-full" style="width:${w}%;background:linear-gradient(90deg,#FBCFE8,#FDE047,#FACC15);box-shadow:0 0 12px rgba(244,114,182,.7)"></div>${T.map(t=>`<span class="absolute top-0 bottom-0 w-0.5 bg-[#F59E0B]/70" style="left:${Math.min(99,t.min/mx*100)}%"></span>`).join('')}</div>`;
+}
+const tierChips=eu=>`<div class="flex flex-wrap gap-1">${TS().map(t=>`<span class="dpill ${eu>=t.min?'':'off'}">${eu>=t.min?'✨':'🔒'} ${t.pct}% OFF · ${usd(t.min)}+</span>`).join('')}</div>`;
+
+let PAYD=ld('bb_payd',{}),rcEdit=null,eoId=null,eoPrev='IDR';
+const PAY_NQ=PAYS.filter(p=>p!=='QRIS');
+$('#payFields').innerHTML=PAY_NQ.map(p=>`<div><label class="text-xs">${p} account details</label><input id="pd_${p}" class="inp" value="${esc(PAYD[p]||'')}" placeholder="${p==='PayPal'?'PayPal email':'Account name / number'}"></div>`).join('');
+function rcPayUpd(){
+  const p=$('#rcPay').value,q=p==='QRIS';
+  $('#rcDetWrap').classList.toggle('hidden',q);
+  if(!q){$('#rcPayDet').value=PAYD[p]||'';$('#rcDetL').textContent=`${p} account details (shown on the receipt)`}
+  $('#rcPayInfo').textContent=q?(qrPng?'✨ The QRIS code will appear on this receipt.':'⚠️ No QRIS uploaded yet. Upload it above.'):'✨ The account details above will appear on this receipt.';
+}
+$('#rcPay').onchange=rcPayUpd;
+$('#payForm').onsubmit=e=>{e.preventDefault();PAY_NQ.forEach(p=>PAYD[p]=$('#pd_'+p).value.trim());sv('bb_payd',PAYD);rcPayUpd();toast('Payment details saved')};
+
+function rcLoad(o){
+  $('#rcRows').innerHTML='';
+  $('#rcBuyer').value=o.buyer||'';$('#rcCur').value=o.cur||'IDR';
+  if(PAYS.includes(o.pay))$('#rcPay').value=o.pay;
+  rcPayUpd();if(o.payDet&&o.pay!=='QRIS')$('#rcPayDet').value=o.payDet;
+  (o.items&&o.items.length?o.items:[{n:'',amt:0}]).forEach(it=>{
+    addRc();const r=$('#rcRows').lastElementChild,sel=r.querySelector('.ra'),a=it.app&&APPS.find(x=>x.name===it.app),u=a&&parseFloat(String(it.u||'').replace(/,/g,''));
+    if(a&&u){sel.value=a.id;rcSel(sel);r.querySelector('.ru').value=u}
+    else{sel.value='';rcSel(sel);r.querySelector('.rn').value=it.n||'';r.querySelector('.rp').value=it.amt||''}
+  });
+  $('#rcDisc').value=o.disc||'';$('#rcDiscCur').value=o.discCur||o.cur||'IDR';$('#rcNote').value=o.note||'';schedSet('rcSched','rcDate',o.schedMode,o.schedDate);$('#rcLog').checked=false;rcSum();
+}
+function editReceipt(i){
+  const r=RECEIPTS[i];if(!r)return;
+  rcLoad({buyer:r.buyer,pay:r.pay,payDet:r.payDet,cur:r.cur,items:r.items,disc:r.disc||0,discCur:r.cur,note:r.note,schedMode:r.schedMode,schedDate:r.schedDate});
+  rcEdit=i;toast('Receipt loaded. Edit it and press Generate to update.');$('#rcForm').scrollIntoView({behavior:'smooth'});
+}
+
+const eoCurConv=(v,from,to)=>from===to?v:(to==='USD'?+(v/RATE).toFixed(2):Math.round(v*RATE));
+function editOrder(id){
+  const s=sales.find(x=>String(x.id)===id);if(!s)return;eoId=id;
+  const a=APPS.find(x=>x.name===s.app),r=rateOf(a),cur=s.cur||'IDR';
+  $('#eoApp').innerHTML=APPS.map(x=>`<option>${esc(x.name)}</option>`).join('')+'<option>Manual order</option><option>Other / Multiple</option>';
+  if(![...$('#eoApp').options].some(o=>o.value===s.app))$('#eoApp').insertAdjacentHTML('beforeend',`<option>${esc(s.app)}</option>`);
+  $('#eoPay').innerHTML='<option value="">Not specified</option>'+PAYS.map(p=>`<option>${p}</option>`).join('');
+  const tot=cur==='USD'?(s.amt!=null?s.amt:+(s.total/RATE).toFixed(2)):Math.round(s.total),cut=s.cut||0;
+  $('#eoBuyer').value=s.buyer;$('#eoApp').value=s.app;$('#eoPkg').value=s.pkg||'';$('#eoUnits').value=s.units||'';$('#eoRate').value=s.rate||(r?r.upu:'');
+  $('#eoCur').value=cur;eoPrev=cur;$('#eoGross').value=+(tot+cut).toFixed(2);$('#eoCut').value=cut;$('#eoTotal').value=tot;
+  $('#eoPay').value=s.pay||'';$('#eoPayDet').value=s.payDet||PAYD[s.pay]||'';$('#eoStatus').value=s.status;schedSet('eoSched','eoDate',s.schedMode,s.schedDate);openM('eoM');
+}
+function eoCalc(from){
+  const g=parseFloat($('#eoGross').value)||0,c=parseFloat($('#eoCut').value)||0,t=parseFloat($('#eoTotal').value)||0;
+  if(from==='total')$('#eoCut').value=+Math.max(0,g-t).toFixed(2);else $('#eoTotal').value=+Math.max(0,g-c).toFixed(2);
+}
+function eoRecalc(){
+  const u=parseFloat($('#eoUnits').value)||0,r=parseFloat($('#eoRate').value)||0;
+  if(!(u>0&&r>0))return toast('Enter total units and a base rate (units per $1) first');
+  const v=u/r;$('#eoGross').value=$('#eoCur').value==='USD'?+v.toFixed(2):Math.round(v*RATE);eoCalc('gross');toast('Price recalculated');
+}
+$('#eoGross').oninput=()=>eoCalc('gross');$('#eoCut').oninput=()=>eoCalc('cut');$('#eoTotal').oninput=()=>eoCalc('total');
+$('#eoCur').onchange=()=>{const to=$('#eoCur').value;['eoGross','eoCut','eoTotal'].forEach(k=>$('#'+k).value=eoCurConv(parseFloat($('#'+k).value)||0,eoPrev,to));eoPrev=to};
+$('#eoApp').onchange=()=>{const r=rateOf(APPS.find(x=>x.name===$('#eoApp').value));if(r&&!parseFloat($('#eoRate').value))$('#eoRate').value=r.upu};
+$('#eoF').onsubmit=e=>{
+  e.preventDefault();const s=sales.find(x=>String(x.id)===eoId);if(!s)return;
+  let b=$('#eoBuyer').value.trim();if(!b.startsWith('@'))b='@'+b;
+  const cur=$('#eoCur').value,tot=parseFloat($('#eoTotal').value)||0,units=parseFloat($('#eoUnits').value)||0,rate=parseFloat($('#eoRate').value)||0,was=s.status==='Completed';
+  Object.assign(s,{buyer:b,app:$('#eoApp').value,pkg:$('#eoPkg').value.trim(),units:units||undefined,rate:rate||undefined,cur,amt:tot,total:cur==='USD'?tot*RATE:tot,cut:parseFloat($('#eoCut').value)||0,pay:$('#eoPay').value,payDet:$('#eoPayDet').value.trim(),status:$('#eoStatus').value,...schedObj('eoSched','eoDate')});
+  sv('bb_sales',sales);closeM('eoM');renderAdmin();toast('Order updated');
+  if(s.status==='Completed'&&!was)awardStamp(s);
+};
+function receiptFromSale(){
+  const cur=$('#eoCur').value,tot=parseFloat($('#eoTotal').value)||0,gross=parseFloat($('#eoGross').value)||tot,app=$('#eoApp').value,pkg=$('#eoPkg').value.trim();
+  let b=$('#eoBuyer').value.trim();if(b&&!b.startsWith('@'))b='@'+b;
+  const items=[{n:app+(pkg?' · '+pkg:''),amt:gross}],u=parseFloat($('#eoUnits').value)||0;
+  if(u>0&&APPS.some(x=>x.name===app))items[0]={app,u:String(u),n:app,amt:gross};
+  closeM('eoM');aTab('rc');
+  rcLoad({buyer:b,pay:$('#eoPay').value,payDet:$('#eoPayDet').value.trim(),cur,items,disc:Math.max(0,+(gross-tot).toFixed(2)),discCur:cur,note:'',...schedObj('eoSched','eoDate')});
+  toast('Receipt form filled from the order. Press Generate.');
+}
+$('#eoPay').innerHTML='<option value="">Not specified</option>'+PAYS.map(p=>`<option>${p}</option>`).join('');
+['eoBuyer'].forEach(id=>$('#'+id).addEventListener('input',()=>{let v=$('#'+id).value.replace(/\s/g,'');if(v&&v[0]!=='@')v='@'+v;if(v!==$('#'+id).value)$('#'+id).value=v}));
+
+/* ===== VOTING SCHEDULE HELPERS ===== */
+function fmtDate(d){const p=String(d||'').split('-');if(p.length!==3)return '';return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
+function schedObj(selId,dateId){const m=$('#'+selId).value,d=$('#'+dateId).value;return m==='date'&&d?{schedMode:'date',schedDate:d,sched:fmtDate(d)}:{schedMode:'asap',schedDate:'',sched:'Instant / ASAP'}}
+function schedMode(o){return o.schedMode==='date'&&o.schedDate?`Scheduled Date (${fmtDate(o.schedDate)})`:'Instant / ASAP'}
+function schedSet(selId,dateId,mode,date){const s=$('#'+selId),d=$('#'+dateId);s.value=mode==='date'?'date':'asap';d.value=date||'';d.classList.toggle('hidden',s.value!=='date')}
+function schedBind(selId,dateId,cb){const s=$('#'+selId),d=$('#'+dateId);d.min=today();s.addEventListener('change',()=>{d.classList.toggle('hidden',s.value!=='date');if(cb)cb()});d.addEventListener('change',()=>{if(cb)cb()})}
+let CSCH=ld('bb_sched',{mode:'asap',date:''});
+schedBind('cSched','cDate',()=>{CSCH={mode:$('#cSched').value,date:$('#cDate').value};sv('bb_sched',CSCH)});
+schedBind('eoSched','eoDate');schedBind('rcSched','rcDate');
+schedSet('cSched','cDate',CSCH.mode,CSCH.date);
+
+/* ===== CHECKOUT (clean, compact DM format) ===== */
+$('#checkout').onclick=()=>{
+  if(!cart.length)return toast('Your cart is empty');
+  let u=$('#cUser').value.trim();
+  if(!u)return toast('Please enter your Twitter handle');
+  if(!u.startsWith('@'))u='@'+u;
+  const so=schedObj('cSched','cDate');
+  if($('#cSched').value==='date'&&!$('#cDate').value)return toast('Please choose a scheduled date 🗓️');
+  const c=calc(), note=$('#cNote').value.trim(), pay=$('#cPay').value;
+  const oid='o'+Date.now(),vr=(c.sub-c.disc)>0?c.total/(c.sub-c.disc):1;
+  const lines=cart.map((it,n)=>{const a=APPS.find(x=>x.id===it.id),r=rateOf(a),un=isU(a,it);
+    return `${n+1}. ${a.name} - ${un?unitTxt(a,it):a.pk[it.i][0]+' x'+it.q}`+(un&&r?`\n   Rate: ${(+r.upu.toFixed(2)).toLocaleString('en-US')} ${r.unit} / ${idr(RATE)}`:'')+`\n   Price: ${fmt(lineOf(it))}`}).join('\n');
+  const msg=`Hi @bingbingvote! I'd like to place an order 💛\nTwitter: ${u}\n🛍️ ORDER DETAILS:\n${lines}\n🗓️ VOTING SCHEDULE:\n• Mode: ${schedMode(so)}\n💳 PAYMENT & SUMMARY:\n• Subtotal: ${fmt(c.sub)}\n• Discount (Tier ${c.tier||0}, ${c.pct}% OFF): -${fmt(c.disc)}${c.v?'\n• Loyalty voucher: -'+fmt(c.v):''}\n• FINAL TOTAL: ${fmt(c.total)}\n• Payment Method: ${pay}\n• Notes: ${note||'-'}\nPlease send the payment details. Thank you! ✨`;
+  cart.forEach(it=>{const a=APPS.find(x=>x.id===it.id);
+    sales.unshift({id:Date.now()+Math.random(),date:today(),buyer:u,app:a.name,pkg:isU(a,it)?unitTxt(a,it):a.pk[it.i][0],qty:isU(a,it)?undefined:it.q,total:lineOf(it)*(a.disc===false?1:1-c.pct/100)*vr,status:'Pending',pay,oid,schedMode:so.schedMode,schedDate:so.schedDate,sched:so.sched})});
+  sv('bb_sales',sales);
+  if(c.v>0){useVoucher(u);useV=false}
+  const url=`${DM}&text=${encodeURIComponent(msg)}`;
+  const ok='Order copied! Press Paste in the DM box and send.';
+  try{navigator.clipboard.writeText(msg).then(()=>toast(ok),()=>toast('Could not copy. The order text is pre-filled in the DM box.'))}
+  catch(e){toast('Could not copy. The order text is pre-filled in the DM box.')}
+  const w=window.open(url,'_blank'); if(!w)location.href=url;
+  cart=[];sv('bb_cart',cart);renderCart();closeCart();
+};
+
+/* ===== VISUAL LOYALTY CARD (PNG) ===== */
+function renderLdCard(h){
+  const L=lget(h),slots=Array.from({length:STAMPS},(_,i)=>i<L.stamps
+    ?'<div style="height:2.6rem;border-radius:9999px;background:#FDE047;border:3px solid #F59E0B;display:flex;align-items:center;justify-content:center;font-size:1.3rem">🐝</div>'
+    :'<div style="height:2.6rem;border-radius:9999px;background:#fff;border:3px dashed #FBCFE8;display:flex;align-items:center;justify-content:center;font-size:1rem;opacity:.85">⚪</div>').join('');
+  $('#ldCard').innerHTML=`<div id="ldCardIn" style="background:linear-gradient(160deg,#FEF9C3,#FCE7F3);border:4px dashed #F59E0B;border-radius:1.6rem;padding:1rem;color:#78350F;font-family:Quicksand,sans-serif;text-align:center">
+   <img src="${logoSrc()}" alt="logo" style="width:3.2rem;height:3.2rem;border-radius:9999px;border:3px solid #F59E0B;object-fit:cover;margin:0 auto .2rem;display:block">
+   <div style="font-family:Comfortaa,sans-serif;font-weight:700;font-size:1.15rem">@bingbingvote 🎀</div>
+   <div style="font-size:.78rem;font-weight:700">💌 Digital Loyalty Stamp Card ✨</div>
+   <div style="display:inline-block;margin:.5rem 0;background:#fff;border:2px solid #FBCFE8;border-radius:9999px;padding:.2rem .9rem;font-weight:700">${esc(h)}</div>
+   <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.45rem">${slots}</div>
+   <div style="margin-top:.6rem;font-weight:700;font-size:.9rem">${L.stamps}/${STAMPS} stamps${L.vouchers?` · 🎟️ ${L.vouchers} voucher${L.vouchers>1?'s':''} ready`:''}</div>
+   <div style="margin-top:.35rem;background:#fff;border:2px solid #FBCFE8;border-radius:1rem;padding:.35rem .5rem;font-size:.75rem;font-weight:700">🎁 Collect ${STAMPS} stamps for ${vLabel()} OFF</div></div>`;
+}
+$('#ldPng').onclick=()=>{
+  if(typeof html2canvas==='undefined')return toast('Image export needs an internet connection.');
+  html2canvas($('#ldCardIn'),{scale:2,backgroundColor:null,useCORS:true}).then(c=>{const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='loyalty-card-'+ldH.replace('@','')+'.png';a.click()}).catch(()=>toast('Could not export the card image.'));
+};
+
+/* ===== PROMO BANNER STUDIO ===== */
+const PB_DEF={tpl:'list',theme:'yellow',
+ list:{title:'VOTE PRICE LIST',sub:'Fast & safe K-Pop voting 💛',rate:'✨ FLAT RATE: $1.00 / IDR 17,000 ✨',pos:'top',foot:'DM @bingbingvote to order 💌',rows:[{i:'🎵',n:'Idolchamp',q:'40,000 Rubies'},{i:'⭐',n:'Fancast',q:'20,000 Hearts'},{i:'🎤',n:'Mubeat',q:'10,000 Tickets'}]},
+ sale:{title:'FLASH SALE',pct:'10',target:'MAMA 2026 · Best Girl Group',icon:'🎵',app:'Idolchamp',q:'40,000 Rubies',rate:'✨ SPECIAL RATE: 450 Ruby / IDR 17,000 ✨',price:'IDR 1,500,000'},
+ ann:{title:'ANNOUNCEMENT',sub:'Please read 💛',body:'Orders are open every day!\nDM @bingbingvote to start your vote 🐝'},
+ done:{icon:'🎵',app:'Idolchamp',q:'40,000 Rubies',time:''}};
+let PB=Object.assign({},PB_DEF,ld('bb_promo',{}));
+if(!PB.done.time)PB.done.time=new Date().toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'});
+const PB_TH={yellow:{bg:'linear-gradient(160deg,#FEF08A,#FDE047)',card:'#FFFBEB',ac:'#F59E0B',tx:'#78350F',rate:'#FBCFE8',row:'#FEF9C3'},
+ pink:{bg:'linear-gradient(160deg,#FBCFE8,#FCE7F3)',card:'#FFF7FB',ac:'#EC4899',tx:'#831843',rate:'#FEF08A',row:'#FCE7F3'},
+ cream:{bg:'linear-gradient(160deg,#FFFBEB,#FEF3C7)',card:'#FFFFFF',ac:'#D97706',tx:'#78350F',rate:'#FDE047',row:'#FFFBEB'}};
+const pbIco=(v,s)=>/^(https?:|data:)/.test(v||'')?`<img src="${esc(v)}" crossorigin="anonymous" style="width:${s}px;height:${s}px;border-radius:12px;object-fit:cover;display:block">`:`<span style="font-size:${Math.round(s*.8)}px;line-height:${s}px;display:block;width:${s}px;text-align:center">${esc(v||'🐝')}</span>`;
+function pbDraw(){
+  const T=PB_TH[PB.theme]||PB_TH.yellow,L=PB.list,S=PB.sale,A=PB.ann,D=PB.done;
+  const rate=t=>t?`<div style="background:${T.rate};border:3px dashed ${T.ac};border-radius:18px;padding:10px 14px;text-align:center;font-weight:700;font-size:16px;margin:12px 0">${esc(t)}</div>`:'';
+  const head=`<div style="text-align:center"><div style="font-family:Comfortaa,sans-serif;font-weight:700;font-size:20px">🐝 @bingbingvote 🐝</div><div style="font-size:12px;opacity:.8">K-Pop Voting Specialist 🌸🎀✨</div></div>`;
+  const foot=t=>`<div style="text-align:center;margin-top:14px;font-weight:700;font-size:13px">${esc(t)}</div>`;
+  let b='';
+  if(PB.tpl==='list'){
+    const rows=L.rows.map(r=>`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;background:${T.row};border:2px solid ${T.rate};border-radius:16px;padding:8px 12px;margin-bottom:8px"><div style="display:flex;gap:10px;align-items:center;font-weight:700">${pbIco(r.i,30)}<span>${esc(r.n)}</span></div><div style="text-align:right;font-weight:700">${esc(r.q)}</div></div>`);
+    const mid=Math.ceil(rows.length/2);
+    b=`${head}<div style="text-align:center;margin-top:10px"><div style="font-family:Comfortaa,sans-serif;font-weight:700;font-size:26px">${esc(L.title)}</div><div style="font-size:13px">${esc(L.sub)}</div></div>${L.pos==='top'?rate(L.rate):''}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px;margin:10px 0 6px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.75"><div>App Name</div><div style="text-align:right">Ammo / Votes</div></div>
+    ${rows.slice(0,mid).join('')}${L.pos==='middle'?rate(L.rate):''}${rows.slice(mid).join('')}${L.pos==='bottom'?rate(L.rate):''}${foot(L.foot)}`;
+  }else if(PB.tpl==='sale'){
+    b=`${head}<div style="text-align:center;margin-top:10px"><div style="display:inline-block;background:${T.rate};border:2px solid ${T.ac};border-radius:9999px;padding:4px 14px;font-weight:700;font-size:13px">⚡ ${esc(S.title)} ⚡</div><div style="font-family:Comfortaa,sans-serif;font-weight:700;font-size:54px;line-height:1.1;margin-top:6px">${esc(S.pct)}% OFF</div><div style="font-size:14px;font-weight:700">🎤 ${esc(S.target)}</div></div>
+    <div style="display:flex;gap:12px;align-items:center;justify-content:center;background:${T.row};border:2px solid ${T.rate};border-radius:18px;padding:10px;margin-top:12px">${pbIco(S.icon,44)}<div><div style="font-weight:700;font-size:18px">${esc(S.app)}</div><div style="font-size:15px;font-weight:700">${esc(S.q)}</div></div></div>${rate(S.rate)}
+    <div style="text-align:center"><div style="font-size:12px;opacity:.8">DEAL PRICE</div><div style="font-family:Comfortaa,sans-serif;font-weight:700;font-size:30px">${esc(S.price)}</div></div>${foot('DM @bingbingvote to claim 💌')}`;
+  }else if(PB.tpl==='ann'){
+    b=`${head}<div style="text-align:center;margin:18px 0 8px"><div style="font-size:30px">📢</div><div style="font-family:Comfortaa,sans-serif;font-weight:700;font-size:28px">${esc(A.title)}</div><div style="font-size:14px;font-weight:700">${esc(A.sub)}</div></div><div style="background:${T.row};border:2px solid ${T.rate};border-radius:18px;padding:14px;white-space:pre-wrap;font-size:15px;line-height:1.5;text-align:center">${esc(A.body)}</div>${foot('💛 Thank you for your support! 🌸')}`;
+  }else{
+    b=`${head}<div style="text-align:center;margin-top:16px"><div style="font-family:Comfortaa,sans-serif;font-weight:700;font-size:28px">VOTE COMPLETED 💛</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:6px;background:${T.row};border:2px solid ${T.rate};border-radius:20px;padding:16px;margin-top:12px">${pbIco(D.icon,64)}<div style="font-weight:700;font-size:20px">${esc(D.app)}</div><div style="font-size:22px;font-weight:700">${esc(D.q)} submitted ✅</div></div><div style="text-align:center;font-size:12px;margin-top:10px">🕒 ${esc(D.time)}</div>${foot('Thank you for trusting @bingbingvote 🐝✨')}`;
+  }
+  $('#pbCanvas').innerHTML=`<div style="background:${T.bg};padding:18px;border-radius:28px;font-family:Quicksand,sans-serif"><div style="background:${T.card};border:4px solid ${T.ac};border-radius:24px;padding:20px;color:${T.tx}">${b}</div></div>`;
+  sv('bb_promo',PB);
+}
+const pbIn=(k,lab,v,t)=>`<div class="${t==='area'?'sm:col-span-2':''}"><label class="text-xs">${lab}</label>${t==='area'?`<textarea class="inp" rows="3" oninput="pbSet('${k}',this.value)">${esc(v)}</textarea>`:`<input class="inp" value="${esc(v)}" oninput="pbSet('${k}',this.value)">`}</div>`;
+function pbForm(){
+  const L=PB.list,S=PB.sale,A=PB.ann,D=PB.done;let h='';
+  if(PB.tpl==='list')h=pbIn('title','Banner title',L.title)+pbIn('sub','Subtitle',L.sub)+pbIn('rate','Rate banner text',L.rate)+`<div><label class="text-xs">Rate box position</label><select class="inp" onchange="pbSet('pos',this.value)"><option value="top"${L.pos==='top'?' selected':''}>Top</option><option value="middle"${L.pos==='middle'?' selected':''}>Middle</option><option value="bottom"${L.pos==='bottom'?' selected':''}>Bottom</option></select></div>`+pbIn('foot','Footer text',L.foot)+`<div class="sm:col-span-2 space-y-2"><div class="text-xs font-semibold">Rows (App icon · App name · Ammo quantity)</div>${L.rows.map((r,i)=>`<div class="grid grid-cols-12 gap-1"><input class="inp col-span-3" value="${esc(r.i)}" placeholder="🎵 or URL" oninput="pbRow(${i},'i',this.value)"><input class="inp col-span-4" value="${esc(r.n)}" placeholder="App name" oninput="pbRow(${i},'n',this.value)"><input class="inp col-span-4" value="${esc(r.q)}" placeholder="40,000 Hearts" oninput="pbRow(${i},'q',this.value)"><button type="button" class="col-span-1 text-red-600" onclick="pbDel(${i})" aria-label="Remove row"><i class="fa-solid fa-xmark"></i></button></div>`).join('')}<button type="button" class="btn alt text-sm" onclick="pbAdd()">+ Add Row</button></div>`;
+  else if(PB.tpl==='sale')h=pbIn('title','Promo title',S.title)+pbIn('pct','Discount %',S.pct)+pbIn('target','Target idol / event',S.target)+pbIn('icon','App icon (emoji or URL)',S.icon)+pbIn('app','App name',S.app)+pbIn('q','Ammo quantity',S.q)+pbIn('rate','Rate box text',S.rate)+pbIn('price','Deal price',S.price);
+  else if(PB.tpl==='ann')h=pbIn('title','Announcement title',A.title)+pbIn('sub','Subtext',A.sub)+pbIn('body','Message body',A.body,'area');
+  else h=pbIn('icon','App icon (emoji or URL)',D.icon)+pbIn('app','App name',D.app)+pbIn('q','Total ammo / votes submitted',D.q)+pbIn('time','Session timestamp',D.time);
+  $('#pbForm').innerHTML=h;
+}
+const pbSet=(k,v)=>{PB[PB.tpl][k]=v;pbDraw()};
+const pbRow=(i,k,v)=>{PB.list.rows[i][k]=v;pbDraw()};
+const pbAdd=()=>{PB.list.rows.push({i:'🎵',n:'',q:''});pbForm();pbDraw()};
+const pbDel=i=>{PB.list.rows.splice(i,1);pbForm();pbDraw()};
+$('#pbTpl').onchange=()=>{PB.tpl=$('#pbTpl').value;pbForm();pbDraw()};
+$('#pbTheme').onchange=()=>{PB.theme=$('#pbTheme').value;pbDraw()};
+$('#pbDl').onclick=()=>{
+  if(typeof html2canvas==='undefined')return toast('Image export needs an internet connection.');
+  html2canvas($('#pbCanvas'),{scale:2,backgroundColor:null,useCORS:true}).then(c=>{const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='promo-'+PB.tpl+'-'+Date.now()+'.png';a.click()}).catch(()=>toast('Could not export. If an icon is an external link, use an emoji or upload-based data URL.'));
+};
+$('#pbTpl').value=PB.tpl;$('#pbTheme').value=PB.theme;pbForm();pbDraw();
+
+rcPayUpd();
 refreshAll();
+</script>
+  <!-- Load Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+  // 1. Inisialisasi Firebase dengan Config Kamu
+  const firebaseConfig = {
+    apiKey: "AIzaSyB4VluN9JxoUKHRV61SS-k6IYRf0Mn1b9s",
+    authDomain: "bingbing-store.firebaseapp.com",
+    databaseURL: "https://bingbing-store-default-rtdb.firebaseio.com",
+    projectId: "bingbing-store",
+    storageBucket: "bingbing-store.firebasestorage.app",
+    messagingSenderId: "99192212708",
+    appId: "1:99192212708:web:5dbd7c8502adc2da8870f1",
+    measurementId: "G-LS989THQR4"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  // 2. FUNGSI SIMPAN: Panggil fungsi ini saat kamu klik tombol "Save" di Admin Dashboard
+  function simpanDataKeCloud(dataTerbaru) {
+    db.ref('storefrontData').set(dataTerbaru)
+      .then(() => alert("Data berhasil tersimpan otomatis di cloud!"))
+      .catch((err) => console.error("Gagal simpan:", err));
+  }
+
+// 3. FUNGSI LOAD OTOMATIS: Berjalan otomatis begitu pengunjung membuka web
+  db.ref('storefrontData').on('value', (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+      console.log("Data cloud diterima:", data);
+
+      // Update variabel internal dengan data dari cloud jika tersedia
+      if (data.apps) APPS = data.apps;
+      if (data.events) EVENTS = data.events;
+      if (data.home) HOME = data.home;
+
+      // Perbarui tampilan web pengunjung secara otomatis
+      refreshAll();
+    }
+  });
 </script>
 </body>
 </html>
